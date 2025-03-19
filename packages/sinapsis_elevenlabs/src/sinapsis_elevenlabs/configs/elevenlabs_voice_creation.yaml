@@ -1,0 +1,20 @@
+agent:
+  name: voice_creation
+  description: voice generation agent using CosyVoice
+
+templates:
+- template_name: InputTemplate
+  class_name: InputTemplate
+  attributes: {}
+
+- template_name: TextInput
+  class_name: TextInput
+  template_input: InputTemplate
+  attributes:
+    text: The night air carried whispers of betrayal, thick as London fog. I adjusted my cufflinks - after all, even spies must maintain appearances, especially when the game is afoot.
+
+- template_name: ElevenLabsVoiceGeneration
+  class_name: ElevenLabsVoiceGeneration
+  template_input: TextInput
+  attributes:
+    voice_description: An old British female with a raspy, deep voice. Professional, relaxed and assertive

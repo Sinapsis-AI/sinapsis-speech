@@ -1,0 +1,16 @@
+services:
+  sinapsis-elevenlabs:
+    extends:
+      service: sinapsis-speech-main
+      file: compose.yaml
+    container_name: sinapsis-elevenlabs
+    environment:
+      AGENT_CONFIG_PATH: ${AGENT_CONFIG_PATH:-packages/sinapsis_elevenlabs/src/sinapsis_elevenlabs/configs/elevenlabs_tts.yaml}
+      PYTHONPATH: /app/webapps:/lib/python3.10/:/app/.venv/lib/python3.10/site-packages:/lib/python3.10/
+      ELEVENLABS_API_KEY: ${ELEVENLABS_API_KEY}
+    tty: true
+    volumes:
+      - "../webapps/:/app/webapps"
+      - "../packages/sinapsis_elevenlabs/src/sinapsis_elevenlabs/configs/:/app/packages/sinapsis_elevenlabs/src/sinapsis_elevenlabs/configs/"
+
+    command: python3 webapps/elevenlabs/elevenlabs_tts_app.py

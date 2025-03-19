@@ -1,0 +1,28 @@
+[project]
+name = "sinapsis-elevenlabs"
+version = "0.1.0"
+description = "Generate realistic voices from text, other speeches, and more using the Elevenlabs library."
+readme = "README.md"
+license = {file = "LICENSE"}
+
+requires-python = ">=3.10"
+dependencies = [
+    "elevenlabs>=1.50.3",
+    "sinapsis>=0.1.1",
+]
+
+[project.optional-dependencies]
+gradio-app = [
+    "gradio>=5.14.0",
+]
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[[tool.uv.index]]
+url = "https://pypi.sinapsis.tech/"
+[project.urls]
+Homepage = "https://sinapsis.tech"
+Documentation = "https://docs.sinapsis.tech/docs"
+Tutorials = "https://docs.sinapsis.tech/tutorials"
+Repository = "https://github.com/Sinapsis-AI/sinapsis-speech.git"

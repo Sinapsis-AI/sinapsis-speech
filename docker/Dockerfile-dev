@@ -1,0 +1,14 @@
+
+FROM sinapsis-nvidia:base
+RUN apt-get update && apt-get install -y cuda-toolkit-12-4 python3-dev git
+# sync all requirements including optional ones
+COPY . /app/
+WORKDIR /app
+
+RUN uv sync --frozen
+
+
+RUN uv build && uv build --all-packages
+
+RUN uv pip install /app/dist/sinapsis_elevenlabs-0.1.0-py3-none-any.whl
+RUN uv pip install /app/dist/sinapsis_speech-0.1.0-py3-none-any.whl[all]

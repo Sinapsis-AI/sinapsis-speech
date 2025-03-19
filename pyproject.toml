@@ -1,0 +1,78 @@
+[project]
+name = "sinapsis-speech"
+version = "0.1.0"
+description = "Generate speech using various libraries."
+authors = [
+    {name = "SinapsisAI", email = "dev@sinapsis-ai.com"},
+]
+readme = "README.md"
+license = {file = "LICENSE"}
+requires-python = ">=3.10"
+dependencies = [
+    "pip>=24.3.1",
+    "sinapsis>=0.1.1",
+]
+[dependency-groups]
+dev = [
+    "ruff>=0.8.3",
+    "pre-commit>=4.0.1",
+]
+
+[project.optional-dependencies]
+
+elevenlabs-app = [
+ "sinapsis-elevenlabs",
+ "sinapsis-speech[gradio-app]",
+]
+gradio-app = [
+    "gradio>=5.14.0",
+    "sinapsis-data-readers>=0.1.0",
+]
+
+all = ["sinapsis-elevenlabs",  "sinapsis-speech[gradio-app]", "sinapsis-speech[elevenlabs-app]"]
+
+[tool.uv.workspace]
+members = ["packages/*"]
+exclude = ["packages/*.egg-info"]
+
+[tool.setuptools]
+packages = { find = { where = ["packages"] } }
+
+[tool.uv.sources]
+sinapsis-elevenlabs = { workspace = true }
+sinapsis-speech = { workspace = true }
+
+[[tool.uv.index]]
+url = "https://pypi.sinapsis.tech/"
+
+[tool.ruff]
+lint.select = [
+    "ARG",  # Unused arguments
+    "ANN",
+    "BLE",  # Blind except
+    "C4",   # Comprehensions
+    "E",    # Errors
+    "F",    # Pyflakes
+    "FIX",  # "FIXME"-comments
+    "FLY",  # F-strings
+    "I",    # Isort
+    "PERF", # Unnecessary performance costs
+    "PIE",  # Unnecessary code
+    "RUF",  # Ruff
+    "RSE",  # Raise
+    "SIM",  # Code simplification
+    "SLOT", # __slots__
+    "T10",  # Debugger
+    "T20",  # Print
+    "TD",   # "TODO"-comments
+    "TID",  # Tidy imports
+]
+lint.ignore = ['ANN401']
+line-length = 120
+show-fixes = true
+
+[project.urls]
+Homepage = "https://sinapsis.tech"
+Documentation = "https://docs.sinapsis.tech/docs"
+Tutorials = "https://docs.sinapsis.tech/tutorials"
+Repository = "https://github.com/Sinapsis-AI/sinapsis-speech.git"
