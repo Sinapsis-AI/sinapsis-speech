@@ -147,12 +147,19 @@ uv pip install sinapsis-speech[all] --extra-index-url https://pypi.sinapsis.tech
 ```bash
 source .venv/bin/activate
 ```
-4. **Launch the demo**:
+4. **Declare PYTHONPATH**
+```bash
+export PYTHONPATH=$PWD/webapps 
+```
+**NOTE** if not located in <code>sinapsis-speech</code> folder, change $PWD for the actual path to <code>sinapsis-speech</code>
+
+
+5. **Launch the demo**:
 
 ```bash
 python webapps/elevenlabs/elevenlabs_tts_app.py
 ```
-4. Open the displayed URL, e.g.:
+6. Open the displayed URL, e.g.:
 ```bash
 Running on local URL:  http://127.0.0.1:7860
 ```
