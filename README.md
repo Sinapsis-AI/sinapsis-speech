@@ -81,9 +81,6 @@ cd sinapsis-speech
 > If you'd like to enable external app sharing in Gradio, `export GRADIO_SHARE_APP=True`
 
 > [!IMPORTANT]
-> The CosyVoice model requires at least 4GB of ram to work.
-
-> [!IMPORTANT]
 > Elevenlabs requires an api key to run any inference. Please go to the [official website](https://elevenlabs.io), create an account.
 If you already have an account, go to the [token page](https://elevenlabs.io/app/settings/api-keys) and generate a token.
 
