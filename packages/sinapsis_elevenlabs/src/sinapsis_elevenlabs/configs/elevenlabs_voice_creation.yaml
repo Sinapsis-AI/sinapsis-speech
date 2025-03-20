@@ -1,6 +1,6 @@
 agent:
   name: voice_creation
-  description: voice generation agent using CosyVoice
+  description: voice generation agent using Elevenlabs
 
 templates:
 - template_name: InputTemplate
