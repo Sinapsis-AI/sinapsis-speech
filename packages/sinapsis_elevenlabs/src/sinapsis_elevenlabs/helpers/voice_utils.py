@@ -9,34 +9,18 @@ def create_voice_settings(settings: VoiceSettings) -> VoiceSettings | None:
     """
     Creates or updates a `VoiceSettings` object based on the provided settings.
 
-    This function attempts to create or update a `VoiceSettings` object using the provided
-    `VoiceSettings` instance. If any of the fields in the settings contain `None`,
-    the corresponding field is populated with a default value from `DEFAULT_VOICE.settings`.
-    If all fields are valid (i.e., none are `None`), the provided `settings` object is returned unchanged.
-
-    If the settings argument is `None` or if no valid settings are provided, the function
-    returns `None`.
-
     Args:
-        settings (VoiceSettings): An instance of `VoiceSettings` containing the settings to be applied.
-            This object may have fields with `None` values that should be replaced with default values.
+        settings (VoiceSettings | None): An instance of `VoiceSettings` containing the settings to be applied.
+            If `None`, the function returns the default settings.
 
     Returns:
-        VoiceSettings: A `VoiceSettings` object created or updated with the provided settings. If any field
-                       was `None`, it is updated with default values. If the settings are invalid or empty,
-                       `None` is returned.
+        VoiceSettings: The provided `VoiceSettings` object if `settings` is not `None`. Otherwise,
+            `DEFAULT_VOICE.settings` is returned.
     """
-    if settings:
-        settings_dict = settings.model_dump()
-        if any(value is None for value in settings_dict.values()):
-            for field, value in settings_dict.items():
-                if value is None:
-                    settings_dict[field] = getattr(DEFAULT_VOICE.settings, field)
+    if not settings:
+        return DEFAULT_VOICE.settings
 
-            return VoiceSettings(**settings_dict)
-        else:
-            return settings
-    return None
+    return settings
 
 
 def get_voice_id(client: ElevenLabs, voice: VoiceId | VoiceName) -> VoiceId:

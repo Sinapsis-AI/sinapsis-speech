@@ -1,23 +1,24 @@
 [project]
-name = "sinapsis-elevenlabs"
-version = "0.1.1"
-description = "Generate realistic voices from text, other speeches, and more using the Elevenlabs library."
+name = "sinapsis-zonos"
+version = "0.1.0"
+description = "Add your description here"
+authors = [
+    {name = "SinapsisAI", email = "dev@sinapsis-ai.com"},
+]
 readme = "README.md"
 license = {file = "LICENSE"}
-
 requires-python = ">=3.10"
 dependencies = [
-    "elevenlabs>=1.50.3",
-    "sinapsis>=0.2.2",
+    "sinapsis>=0.1.1",
+    "zonos>=0.1.1",
 ]
 
-[project.optional-dependencies]
-data-tools = [
-    "sinapsis-data-readers>=0.1.2",
+[dependency-groups]
+dev = [
+    "ruff>=0.8.3",
+    "pre-commit>=4.0.1",
 ]
-all = [
-    "sinapsis-elevenlabs[data-tools]",
-]
+
 [build-system]
 requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
@@ -26,12 +27,21 @@ build-backend = "setuptools.build_meta"
 url = "https://pypi.sinapsis.tech/"
 
 [tool.uv.sources]
-sinapsis-elevenlabs = { workspace = true }
+sinapsis-zonos = { workspace = true }
+
 [project.urls]
 Homepage = "https://sinapsis.tech"
 Documentation = "https://docs.sinapsis.tech/docs"
 Tutorials = "https://docs.sinapsis.tech/tutorials"
 Repository = "https://github.com/Sinapsis-AI/sinapsis-speech.git"
+
+[project.optional-dependencies]
+data-tools = [
+    "sinapsis-data-readers>=0.1.2",
+]
+all = [
+    "sinapsis-zonos[data-tools]",
+]
 
 [tool.ruff]
 lint.select = [

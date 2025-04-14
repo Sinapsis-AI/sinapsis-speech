@@ -1,6 +1,7 @@
 
 FROM sinapsis-nvidia:base
-RUN apt-get update && apt-get install -y cuda-toolkit-12-4 python3-dev
+RUN apt-get update && apt-get install -y cuda-toolkit-12-4 python3-dev git
+# sync all requirements including optional ones
 COPY . /app/
 WORKDIR /app
 

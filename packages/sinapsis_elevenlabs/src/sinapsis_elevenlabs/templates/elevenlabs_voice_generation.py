@@ -42,9 +42,12 @@ class ElevenLabsVoiceGeneration(ElevenLabsBase):
     class AttributesBaseModel(ElevenLabsBase.AttributesBaseModel):
         """
         Attributes for voice generation in ElevenLabs API.
+
+        Args:
+            voice_description (str): A description of the voice to be used for synthesis.
         """
 
-        voice_description: str = "An old British male with a raspy, deep voice. Professional, relaxed and assertive"
+        voice_description: str
 
     def synthesize_speech(self, input_data: list[TextPacket]) -> list[bytes] | None:
         """

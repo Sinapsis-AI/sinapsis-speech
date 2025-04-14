@@ -1,0 +1,42 @@
+agent:
+  name: text_to_speech
+  description: text to speech agent using Zonos
+
+templates:
+
+- template_name: InputTemplate
+  class_name: InputTemplate
+  attributes: {}
+
+- template_name: ZonosTTS
+  class_name: ZonosTTS
+  template_input: InputTemplate
+  attributes:
+    model: Zyphra/Zonos-v0.1-transformer
+    language: en-us
+    emotions:
+      happiness: 0.3077
+      sadness: 0.0256
+      disgust: 0.0256
+      fear: 0.0256
+      surprise: 0.0256
+      anger: 0.0256
+      other: 0.2564
+      neutral: 0.3077
+    fmax: 24000
+    pitch_std: 45.0
+    speaking_rate: 15.0
+    cfg_scale: 2.0
+    sampling_params:
+      linear: 0.5
+      conf: 0.4
+      quad: 0
+    randomized_seed: True
+    denoised_speaker: False
+    unconditional_keys:
+      - dnsmos_ovrl
+      - vqscore_8
+      - emotion
+
+
+

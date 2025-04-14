@@ -5,7 +5,7 @@ services:
       file: compose.yaml
     container_name: sinapsis-elevenlabs
     environment:
-      AGENT_CONFIG_PATH: ${AGENT_CONFIG_PATH:-packages/sinapsis_elevenlabs/src/sinapsis_elevenlabs/configs/elevenlabs_tts.yaml}
+      AGENT_CONFIG_PATH: ${AGENT_CONFIG_PATH:-packages/sinapsis_elevenlabs/src/sinapsis_elevenlabs/configs/elevenlabs_tts_demo.yaml}
       PYTHONPATH: /app/webapps:/lib/python3.10/:/app/.venv/lib/python3.10/site-packages:/lib/python3.10/
       ELEVENLABS_API_KEY: ${ELEVENLABS_API_KEY}
     tty: true
@@ -14,3 +14,33 @@ services:
       - "../packages/sinapsis_elevenlabs/src/sinapsis_elevenlabs/configs/:/app/packages/sinapsis_elevenlabs/src/sinapsis_elevenlabs/configs/"
 
     command: python3 webapps/elevenlabs/elevenlabs_tts_app.py
+
+  sinapsis-f5tts:
+    extends:
+      service: sinapsis-speech-main
+      file: compose.yaml
+    container_name: sinapsis-f5tts
+    environment:
+      AGENT_CONFIG_PATH: ${AGENT_CONFIG_PATH:-packages/sinapsis_f5_tts/src/sinapsis_f5_tts/configs/f5_tts_app.yaml}
+      PYTHONPATH: /app/webapps:/lib/python3.10/:/app/.venv/lib/python3.10/site-packages:/lib/python3.10/
+    tty: true
+    volumes:
+      - "../webapps/:/app/webapps"
+      - "../packages/sinapsis_f5_tts/src/sinapsis_f5_tts/configs/:/app/packages/sinapsis_f5_tts/src/sinapsis_f5_tts/configs/"
+      - "../artifacts/:/app/artifacts/"
+    command: python3 webapps/f5-tts/f5_tts_app.py
+
+  sinapsis-zonos:
+    extends:
+      service: sinapsis-speech-main
+      file: compose.yaml
+    container_name: sinapsis-zonos
+    environment:
+      AGENT_CONFIG_PATH: ${AGENT_CONFIG_PATH:-packages/sinapsis_zonos/src/sinapsis_zonos/configs/zonos_tts_demo.yaml}
+      PYTHONPATH: /app/webapps:/lib/python3.10/:/app/.venv/lib/python3.10/site-packages:/lib/python3.10/
+    tty: true
+    volumes:
+      - "../webapps/:/app/webapps"
+      - "../packages/sinapsis_zonos/src/sinapsis_zonos/configs:/app/packages/sinapsis_zonos/src/sinapsis_zonos/configs"
+      - "../artifacts/:/app/artifacts/"
+    command: python3 webapps/zonos/zonos_tts_app.py

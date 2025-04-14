@@ -1,0 +1,37 @@
+agent:
+  name: f5tts_agent
+  description: "Agent that generates speech from text using the F5TTS model."
+
+templates:
+- template_name: InputTemplate
+  class_name: InputTemplate
+  attributes: {}
+
+- template_name: TextInput
+  class_name: TextInput
+  template_input: InputTemplate
+  attributes:
+    source: "user_input"
+    text: "A bottle of water with a soup"
+
+- template_name: F5TTSInference
+  class_name: F5TTSInference
+  template_input: TextInput
+  attributes:
+    model: "F5TTS_v1_Base"
+    ref_audio: "artifacts/small.mp3"
+    ref_text: " "
+    vocoder_name: "vocos"
+    nfe_step: 32
+    cfg_strength: 2.0
+    cross_fade_duration: 0.15
+    speed: 1.0
+    sway_sampling_coef: -1
+
+- template_name: SaveGeneratedAudio
+  class_name: AudioWriterSoundfile
+  template_input: F5TTSInference
+  attributes:
+    save_dir: "f5_tts"
+    root_dir: "artifacts"
+    extension: "wav"

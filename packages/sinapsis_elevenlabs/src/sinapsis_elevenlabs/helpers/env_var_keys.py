@@ -12,7 +12,7 @@ class _ElevenlabsKeys(BaseModel):
 
     ELEVENLABS_API_KEY: EnvVarEntry = EnvVarEntry(
         var_name="ELEVENLABS_API_KEY",
-        default_value=" ",
+        default_value=None,
         allowed_values=None,
         description="set api key for Elevenlabs",
     )

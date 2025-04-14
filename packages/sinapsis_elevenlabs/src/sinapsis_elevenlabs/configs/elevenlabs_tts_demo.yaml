@@ -1,0 +1,17 @@
+agent:
+  name: text_to_speech
+  description: text to speech agent using elevenlabs
+
+templates:
+
+- template_name: InputTemplate
+  class_name: InputTemplate
+  attributes: {}
+
+- template_name: ElevenLabsTTS
+  class_name: ElevenLabsTTS
+  template_input: InputTemplate
+  attributes:
+    voice: River
+
+

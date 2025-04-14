@@ -9,6 +9,8 @@ from typing import IO, Iterator, Literal
 
 from elevenlabs import Voice, VoiceSettings, save
 from elevenlabs.client import ElevenLabs, VoiceId, VoiceName
+from elevenlabs.types import OutputFormat
+from pydantic import Field
 from sinapsis_core.data_containers.data_packet import AudioPacket, DataContainer, Packet
 from sinapsis_core.template_base.template import (
     Template,
@@ -40,25 +42,23 @@ class ElevenLabsBase(Template, abc.ABC):
         """
         Attributes for ElevenLabs Base Class.
         Args:
-            api_key (str): The API key to authenticate with ElevenLabs' API.
-            voice (str|elevenlabs.Voice): The voice to use for speech synthesis. This can be a voice ID (str),
+            api_key (str): The API used key to authenticate with ElevenLabs' API.
+            model (Literal): The model identifier to use for speech synthesis.
+            output_format (OutputFormat): The output audio format and quality. Options include:
+                ["mp3_22050_32", "mp3_44100_32", "mp3_44100_64", "mp3_44100_96", "mp3_44100_128",
+                "mp3_44100_192", "pcm_16000", "pcm_22050", "pcm_24000", "pcm_44100", "ulaw_8000"]
+            output_folder (str): The folder where generated audio files will be saved.
+            stream (bool): If True, the audio is returned as a stream; otherwise, saved to a file.
+            voice (VoiceId | VoiceName | Voice): The voice to use for speech synthesis. This can be a voice ID (str),
                 a voice name (str) or an elevenlabs voice object (Voice).
             voice_settings (VoiceSettings): A dictionary of settings that control the behavior of the voice.
                 - stability (float)
                 - similarity_boost (float)
                 - style (float)
                 - use_speaker_boost (bool)
-            model (Literal): The model identifier to use for speech synthesis.
-            output_format (Literal): The output audio format and quality. Options include:
-                ["mp3_22050_32", "mp3_44100_32", "mp3_44100_64", "mp3_44100_96", "mp3_44100_128",
-                "mp3_44100_192", "pcm_16000", "pcm_22050", "pcm_24000", "pcm_44100", "ulaw_8000"]
-            output_folder (str): The folder where generated audio files will be saved.
-            stream (bool): If True, the audio is returned as a stream; otherwise, saved to a file.
         """
 
         api_key: str | None = None
-        voice: VoiceId | VoiceName | Voice = None
-        voice_settings: VoiceSettings | None = None
         model: Literal[
             "eleven_turbo_v2_5",
             "eleven_multilingual_v2",
@@ -68,21 +68,11 @@ class ElevenLabsBase(Template, abc.ABC):
             "eleven_english_sts_v2",
             "eleven_multilingual_sts_v2",
         ] = "eleven_turbo_v2_5"
-        output_format: Literal[
-            "mp3_22050_32",
-            "mp3_44100_32",
-            "mp3_44100_64",
-            "mp3_44100_96",
-            "mp3_44100_128",
-            "mp3_44100_192",
-            "pcm_16000",
-            "pcm_22050",
-            "pcm_24000",
-            "pcm_44100",
-            "ulaw_8000",
-        ] = "mp3_44100_128"
+        output_format: OutputFormat = "mp3_44100_128"
         output_folder: str = os.path.join(SINAPSIS_CACHE_DIR, "elevenlabs", "audios")
         stream: bool = False
+        voice: VoiceId | VoiceName | Voice = None
+        voice_settings: VoiceSettings = Field(default_factory=dict)  # type: ignore[arg-type]
 
     def __init__(self, attributes: TemplateAttributeType) -> None:
         """Initializes the ElevenLabs API client with the given attributes."""

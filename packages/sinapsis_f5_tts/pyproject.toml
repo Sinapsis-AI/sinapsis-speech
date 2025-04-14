@@ -1,23 +1,36 @@
 [project]
-name = "sinapsis-elevenlabs"
-version = "0.1.1"
-description = "Generate realistic voices from text, other speeches, and more using the Elevenlabs library."
+name = "sinapsis-f5-tts"
+version = "0.1.0"
+authors = [
+    {name = "SinapsisAI", email = "dev@sinapsis-ai.com"},
+]
+description = "Text to speech using F5-TTS library"
 readme = "README.md"
 license = {file = "LICENSE"}
 
 requires-python = ">=3.10"
 dependencies = [
-    "elevenlabs>=1.50.3",
+    "f5-tts>=1.0.3",
     "sinapsis>=0.2.2",
+    "soundfile>=0.12.1",
 ]
 
 [project.optional-dependencies]
-data-tools = [
-    "sinapsis-data-readers>=0.1.2",
+sinapsis-data-tools = [
+    "sinapsis-data-readers>=0.1.0",
+    "sinapsis-data-writers>=0.1.0",
 ]
+
 all = [
-    "sinapsis-elevenlabs[data-tools]",
+    "sinapsis-f5-tts[sinapsis-data-tools]",
 ]
+
+[dependency-groups]
+dev = [
+    "ruff>=0.8.3",
+    "pre-commit>=4.0.1",
+]
+
 [build-system]
 requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
@@ -26,10 +39,10 @@ build-backend = "setuptools.build_meta"
 url = "https://pypi.sinapsis.tech/"
 
 [tool.uv.sources]
-sinapsis-elevenlabs = { workspace = true }
+sinapsis-f5-tts = { workspace = true }
 [project.urls]
 Homepage = "https://sinapsis.tech"
-Documentation = "https://docs.sinapsis.tech/docs"
+Documentation = "https://docs.sinapsis.tech/docs/sinapsis-speech"
 Tutorials = "https://docs.sinapsis.tech/tutorials"
 Repository = "https://github.com/Sinapsis-AI/sinapsis-speech.git"
 

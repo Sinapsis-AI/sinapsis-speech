@@ -1,6 +1,6 @@
 [project]
 name = "sinapsis-speech"
-version = "0.1.0"
+version = "0.2.0"
 description = "Generate speech using various libraries."
 authors = [
     {name = "SinapsisAI", email = "dev@sinapsis-ai.com"},
@@ -10,7 +10,7 @@ license = {file = "LICENSE"}
 requires-python = ">=3.10"
 dependencies = [
     "pip>=24.3.1",
-    "sinapsis>=0.1.1",
+    "sinapsis>=0.2.2",
 ]
 [dependency-groups]
 dev = [
@@ -20,16 +20,15 @@ dev = [
 
 [project.optional-dependencies]
 
-elevenlabs-app = [
- "sinapsis-elevenlabs",
- "sinapsis-speech[gradio-app]",
+all = [
+    "sinapsis-elevenlabs[all]",
+    "sinapsis-f5-tts[all]",
+    "sinapsis-speech[webapp]",
+    "sinapsis-zonos[all]",
 ]
 gradio-app = [
-    "gradio>=5.14.0",
-    "sinapsis-data-readers>=0.1.0",
+    "sinapsis[webapp]>=0.2.3",
 ]
-
-all = ["sinapsis-elevenlabs",  "sinapsis-speech[gradio-app]", "sinapsis-speech[elevenlabs-app]"]
 
 [tool.uv.workspace]
 members = ["packages/*"]
@@ -37,9 +36,12 @@ exclude = ["packages/*.egg-info"]
 
 [tool.setuptools]
 packages = { find = { where = ["packages"] } }
+license-files = []
 
 [tool.uv.sources]
 sinapsis-elevenlabs = { workspace = true }
+sinapsis-f5-tts = { workspace = true }
+sinapsis-zonos = { workspace = true }
 sinapsis-speech = { workspace = true }
 
 [[tool.uv.index]]
@@ -47,25 +49,25 @@ url = "https://pypi.sinapsis.tech/"
 
 [tool.ruff]
 lint.select = [
-    "ARG",  # Unused arguments
+    "ARG",
     "ANN",
-    "BLE",  # Blind except
-    "C4",   # Comprehensions
-    "E",    # Errors
-    "F",    # Pyflakes
-    "FIX",  # "FIXME"-comments
-    "FLY",  # F-strings
-    "I",    # Isort
-    "PERF", # Unnecessary performance costs
-    "PIE",  # Unnecessary code
-    "RUF",  # Ruff
-    "RSE",  # Raise
-    "SIM",  # Code simplification
-    "SLOT", # __slots__
-    "T10",  # Debugger
-    "T20",  # Print
-    "TD",   # "TODO"-comments
-    "TID",  # Tidy imports
+    "BLE",
+    "C4",
+    "E",
+    "F",
+    "FIX",
+    "FLY",
+    "I",
+    "PERF",
+    "PIE",
+    "RUF",
+    "RSE",
+    "SIM",
+    "SLOT",
+    "T10",
+    "T20",
+    "TD",
+    "TID",
 ]
 lint.ignore = ['ANN401']
 line-length = 120
@@ -73,6 +75,6 @@ show-fixes = true
 
 [project.urls]
 Homepage = "https://sinapsis.tech"
-Documentation = "https://docs.sinapsis.tech/docs"
+Documentation = "https://docs.sinapsis.tech/docs/sinapsis-speech"
 Tutorials = "https://docs.sinapsis.tech/tutorials"
 Repository = "https://github.com/Sinapsis-AI/sinapsis-speech.git"
