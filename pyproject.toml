@@ -7,6 +7,7 @@ authors = [
 ]
 readme = "README.md"
 requires-python = ">=3.10"
+license-files = ["LICENSE"]
 dependencies = [
     "pip>=24.3.1",
     "sinapsis>=0.2.2",
@@ -36,7 +37,7 @@ exclude = ["packages/*.egg-info"]
 
 [tool.setuptools]
 packages = { find = { where = ["packages"] } }
-license-files = ["LICENSE"]
+
 
 [tool.uv.sources]
 sinapsis-elevenlabs = { workspace = true }

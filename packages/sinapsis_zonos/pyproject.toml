@@ -7,6 +7,7 @@ authors = [
 ]
 readme = "README.md"
 requires-python = ">=3.10"
+license-files = ["LICENSE"]
 dependencies = [
     "sinapsis>=0.1.1",
     "zonos>=0.1.1",
@@ -27,8 +28,8 @@ url = "https://pypi.sinapsis.tech/"
 
 [tool.uv.sources]
 sinapsis-zonos = { workspace = true }
-[tool.setuptools]
-license-files = ["LICENSE"]
+
+
 [project.urls]
 Homepage = "https://sinapsis.tech"
 Documentation = "https://docs.sinapsis.tech/docs"

@@ -3,7 +3,7 @@ name = "sinapsis-elevenlabs"
 version = "0.1.2"
 description = "Generate realistic voices from text, other speeches, and more using the Elevenlabs library."
 readme = "README.md"
-
+license-files = ["LICENSE"]
 requires-python = ">=3.10"
 dependencies = [
     "elevenlabs>=1.50.3",
@@ -26,8 +26,7 @@ url = "https://pypi.sinapsis.tech/"
 
 [tool.uv.sources]
 sinapsis-elevenlabs = { workspace = true }
-[tool.setuptools]
-license-files = ["LICENSE"]
+
 
 [project.urls]
 Homepage = "https://sinapsis.tech"
