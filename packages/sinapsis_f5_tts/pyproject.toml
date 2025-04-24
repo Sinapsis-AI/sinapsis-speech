@@ -6,7 +6,6 @@ authors = [
 ]
 description = "Text to speech using F5-TTS library"
 readme = "README.md"
-license = {file = "LICENSE"}
 
 requires-python = ">=3.10"
 dependencies = [
@@ -40,6 +39,8 @@ url = "https://pypi.sinapsis.tech/"
 
 [tool.uv.sources]
 sinapsis-f5-tts = { workspace = true }
+[tool.setuptools]
+license-files = ["LICENSE"]
 [project.urls]
 Homepage = "https://sinapsis.tech"
 Documentation = "https://docs.sinapsis.tech/docs/sinapsis-speech"

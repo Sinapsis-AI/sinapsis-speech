@@ -6,7 +6,6 @@ authors = [
     {name = "SinapsisAI", email = "dev@sinapsis-ai.com"},
 ]
 readme = "README.md"
-license = {file = "LICENSE"}
 requires-python = ">=3.10"
 dependencies = [
     "sinapsis>=0.1.1",
@@ -28,7 +27,8 @@ url = "https://pypi.sinapsis.tech/"
 
 [tool.uv.sources]
 sinapsis-zonos = { workspace = true }
-
+[tool.setuptools]
+license-files = ["LICENSE"]
 [project.urls]
 Homepage = "https://sinapsis.tech"
 Documentation = "https://docs.sinapsis.tech/docs"
