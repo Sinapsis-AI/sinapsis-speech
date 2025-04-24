@@ -1,6 +1,6 @@
 [project]
 name = "sinapsis-speech"
-version = "0.2.0"
+version = "0.2.2"
 description = "Generate speech using various libraries."
 authors = [
     {name = "SinapsisAI", email = "dev@sinapsis-ai.com"},
@@ -23,12 +23,13 @@ dev = [
 all = [
     "sinapsis-elevenlabs[all]",
     "sinapsis-f5-tts[all]",
-    "sinapsis-speech[webapp]",
+    "sinapsis-speech[gradio-app]",
     "sinapsis-zonos[all]",
 ]
 gradio-app = [
     "sinapsis[webapp]>=0.2.3",
 ]
+
 
 [tool.uv.workspace]
 members = ["packages/*"]
