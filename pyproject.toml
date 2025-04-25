@@ -23,6 +23,7 @@ dev = [
 all = [
     "sinapsis-elevenlabs[all]",
     "sinapsis-f5-tts[all]",
+    "sinapsis-kokoro[all]",
     "sinapsis-speech[gradio-app]",
     "sinapsis-zonos[all]",
 ]
@@ -42,6 +43,7 @@ packages = { find = { where = ["packages"] } }
 [tool.uv.sources]
 sinapsis-elevenlabs = { workspace = true }
 sinapsis-f5-tts = { workspace = true }
+sinapsis-kokoro = { workspace = true }
 sinapsis-zonos = { workspace = true }
 sinapsis-speech = { workspace = true }
 
