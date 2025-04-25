@@ -13,7 +13,7 @@ services:
       - "../webapps/:/app/webapps"
       - "../packages/sinapsis_elevenlabs/src/sinapsis_elevenlabs/configs/:/app/packages/sinapsis_elevenlabs/src/sinapsis_elevenlabs/configs/"
 
-    command: python3 webapps/elevenlabs/elevenlabs_tts_app.py
+    command: python3 webapps/generic_tts_apps/elevenlabs_tts_app.py
 
   sinapsis-f5tts:
     extends:
@@ -28,7 +28,21 @@ services:
       - "../webapps/:/app/webapps"
       - "../packages/sinapsis_f5_tts/src/sinapsis_f5_tts/configs/:/app/packages/sinapsis_f5_tts/src/sinapsis_f5_tts/configs/"
       - "../artifacts/:/app/artifacts/"
-    command: python3 webapps/f5-tts/f5_tts_app.py
+    command: python3 webapps/packet_tts_apps/f5_tts_app.py
+
+  sinapsis-kokoro:
+    extends:
+      service: sinapsis-speech-main
+      file: compose_kokoro.yaml
+    container_name: sinapsis-kokoro
+    environment:
+      AGENT_CONFIG_PATH: ${AGENT_CONFIG_PATH:-packages/sinapsis_kokoro/src/sinapsis_kokoro/configs/kokoro_demo.yaml}
+      PYTHONPATH: /app/webapps:/lib/python3.10/:/app/.venv/lib/python3.10/site-packages:/lib/python3.10/
+    tty: true
+    volumes:
+      - "../webapps/:/app/webapps"
+      - "../packages/sinapsis_kokoro/src/sinapsis_kokoro/configs/:/app/packages/sinapsis_kokoro/src/sinapsis_kokoro/configs/"
+    command: python3 webapps/packet_tts_apps/kokoro_tts_app.py
 
   sinapsis-zonos:
     extends:
@@ -42,5 +56,5 @@ services:
     volumes:
       - "../webapps/:/app/webapps"
       - "../packages/sinapsis_zonos/src/sinapsis_zonos/configs:/app/packages/sinapsis_zonos/src/sinapsis_zonos/configs"
-      - "../artifacts/:/app/artifacts/"
-    command: python3 webapps/zonos/zonos_tts_app.py
+    command: python3 webapps/generic_tts_apps/zonos_tts_app.py
+

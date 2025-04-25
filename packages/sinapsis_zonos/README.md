@@ -29,31 +29,37 @@ This **Sinapsis Zonos** package provides a single template for integrating, conf
 > Sinapsis project requires Python 3.10 or higher.
 >
 
-Install using your favourite package manager. We strongly encourage the use of <code>uv</code>, although any other package manager should work too.
-If you need to install <code>uv</code> please see the [official documentation](https://docs.astral.sh/uv/getting-started/installation/#installation-methods).
+Install using your preferred package manager. We strongly recommend using <code>uv</code>. To install <code>uv</code>, refer to the [official documentation](https://docs.astral.sh/uv/getting-started/installation/#installation-methods).
 
 
-Example with <code>uv</code>:
+Install with <code>uv</code>:
 ```bash
   uv pip install sinapsis-zonos --extra-index-url https://pypi.sinapsis.tech
 ```
- or with raw <code>pip</code>:
+Or with raw <code>pip</code>:
 ```bash
   pip install sinapsis-zonos --extra-index-url https://pypi.sinapsis.tech
 ```
 
 > [!IMPORTANT]
-> Templates in each package may require extra dependencies. For development, we recommend installing the package with all the optional dependencies:
+> Templates in each package may require additional dependencies. For development, we recommend installing the package with all the optional dependencies:
 >
-with <code>uv</code>:
+With <code>uv</code>:
 
 ```bash
   uv pip install sinapsis-zonos[all] --extra-index-url https://pypi.sinapsis.tech
 ```
- or with raw <code>pip</code>:
+Or with raw <code>pip</code>:
 ```bash
   pip install sinapsis-zonos[all] --extra-index-url https://pypi.sinapsis.tech
 ```
+
+> [!NOTE]
+Zonos depends on the eSpeak library phonemization. The installation depends on your OS. For Linux:
+```bash
+apt install -y espeak-ng
+```
+
 
 <h2 id="features">🚀 Features</h2>
 
@@ -238,7 +244,7 @@ docker compose -f docker/compose_apps.yaml up -d sinapsis-zonos
 ```
 3. **Check the logs**
 ```bash
-docker logs -f sinapsis-elevenlabs
+docker logs -f sinapsis-zonos
 ```
 4. **The logs will display the URL to access the webapp, e.g.,:**:
 ```bash
@@ -270,7 +276,7 @@ uv pip install sinapsis-speech[all] --extra-index-url https://pypi.sinapsis.tech
 3. **Run the webapp**:
 
 ```bash
-uv run webapps/zonos/zonos_tts_app.py
+uv run webapps/generic_tts_apps/zonos_tts_app.py
 ```
 4. **The terminal will display the URL to access the webapp (e.g.)**:
 ```bash

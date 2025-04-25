@@ -30,27 +30,28 @@ This **Sinapsis Elevenlabs** package offers a suite of templates and utilities d
 > Sinapsis project requires Python 3.10 or higher.
 >
 
-Install using your favourite package manager. We strongly encourage the use of <code>uv</code>, although any other package manager should work too.
-If you need to install <code>uv</code> please see the [official documentation](https://docs.astral.sh/uv/getting-started/installation/#installation-methods).
+Install using your preferred package manager. We strongly recommend using <code>uv</code>. To install <code>uv</code>, refer to the [official documentation](https://docs.astral.sh/uv/getting-started/installation/#installation-methods).
 
-Example with <code>uv</code>:
+
+Install with <code>uv</code>:
 ```bash
   uv pip install sinapsis-elevenlabs --extra-index-url https://pypi.sinapsis.tech
 ```
- or with raw <code>pip</code>:
+
+Or with raw <code>pip</code>:
 ```bash
   pip install sinapsis-elevenlabs --extra-index-url https://pypi.sinapsis.tech
 ```
 
 > [!IMPORTANT]
-> Templates in each package may require extra dependencies. For development, we recommend installing the package with all the optional dependencies:
+> Templates in each package may require additional dependencies. For development, we recommend installing the package with all the optional dependencies:
 >
-with <code>uv</code>:
 
+With <code>uv</code>:
 ```bash
   uv pip install sinapsis-elevenlabs[all] --extra-index-url https://pypi.sinapsis.tech
 ```
- or with raw <code>pip</code>:
+Or with raw <code>pip</code>:
 ```bash
   pip install sinapsis-elevenlabs[all] --extra-index-url https://pypi.sinapsis.tech
 ```
@@ -242,7 +243,7 @@ uv pip install sinapsis-speech[all] --extra-index-url https://pypi.sinapsis.tech
 3. **Run the webapp**:
 
 ```bash
-uv run webapps/elevenlabs/elevenlabs_tts_app.py
+uv run webapps/generic_tts_apps/elevenlabs_tts_app.py
 ```
 
 4. **The terminal will display the URL to access the webapp (e.g.)**:

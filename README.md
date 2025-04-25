@@ -31,6 +31,7 @@ This repo includes packages for performing speech synthesis using different tool
 
 * <code>sinapsis-elevenlabs</code>
 * <code>sinapsis-f5-tts</code>
+* * <code>sinapsis-kokoro</code>
 * <code>sinapsis-zonos</code>
 
 Install using your preferred package manager. We strongly recommend using <code>uv</code>. To install <code>uv</code>, refer to the [official documentation](https://docs.astral.sh/uv/getting-started/installation/#installation-methods).
@@ -100,7 +101,14 @@ This package provides a template for seamlessly integrating, configuring, and ru
 For specific instructions and further details, see the [README.md](https://github.com/Sinapsis-AI/sinapsis-speech/blob/main/packages/sinapsis_f5_tts/README.md).
 
 </details>
+<details>
+<summary id="f5tts"><strong><span style="font-size: 1.4em;"> Sinapsis Kokoro</span></strong></summary>
 
+This package provides a single template for integrating, configuring, and running text-to-speech (TTS) synthesis using the [Kokoro 82M v1.0](https://huggingface.co/hexgrad/Kokoro-82M) model.
+
+KokoroTTS: Converts text to speech using the Kokoro TTS model. The template processes text packets from the input container, generates corresponding audio using Kokoro, and adds the resulting audio packets to the container.
+For specific instructions and further details, see the [README.md](https://github.com/Sinapsis-AI/sinapsis-speech/blob/main/packages/sinapsis_kokoro/README.md).
+</details>
 <details>
 <summary id="zonos"><strong><span style="font-size: 1.4em;"> Sinapsis Zonos</span></strong></summary>
 
@@ -139,41 +147,56 @@ cd sinapsis-speech
 > [!NOTE]
 > Agent configuration can be changed through the `AGENT_CONFIG_PATH` env var. You can check the available configurations in each package configs folder.
 
-
 <details>
 <summary id="docker"><strong><span style="font-size: 1.4em;">🐳 Docker</span></strong></summary>
 
 **IMPORTANT**: This Docker image depends on the `sinapsis-nvidia:base` image. For detailed instructions, please refer to the [Sinapsis README](https://github.com/Sinapsis-ai/sinapsis?tab=readme-ov-file#docker).
 
 1. **Build the sinapsis-speech image**:
+
 ```bash
 docker compose -f docker/compose.yaml build
 ```
 
+
 2. **Start the app container**:
-For ElevenLabs:
+
+- For ElevenLabs:
 ```bash
 docker compose -f docker/compose_apps.yaml up -d sinapsis-elevenlabs
 ```
-For F5-TTS:
+- For F5-TTS:
 ```bash
 docker compose -f docker/compose_apps.yaml up -d sinapsis-f5_tts
 ```
-For Zonos:
+
+- For Kokoro:
+
+```bash
+docker compose -f docker/compose_apps.yaml up -d sinapsis-kokoro
+```
+
+- For Zonos:
 ```bash
 docker compose -f docker/compose_apps.yaml up -d sinapsis-zonos
 ```
 
 3. **Check the logs**
-For ElevenLabs:
+
+- For ElevenLabs:
 ```bash
 docker logs -f sinapsis-elevenlabs
 ```
-For F5-TTS:
+- For F5-TTS:
 ```bash
 docker logs -f sinapsis-f5tts
 ```
-For Zonos:
+- For Kokoro:
+```bash
+docker logs -f sinapsis-kokoro
+```
+
+- For Zonos:
 ```bash
 docker logs -f sinapsis-zonos
 ```
@@ -204,18 +227,26 @@ uv sync --frozen
 uv pip install sinapsis-speech[all] --extra-index-url https://pypi.sinapsis.tech
 ```
 
+
+
 3. **Run the webapp**:
-For ElevenLabs:
+
+- For ElevenLabs:
 ```bash
-uv run webapps/elevenlabs/elevenlabs_tts_app.py
+uv run webapps/generic_tts_apps/elevenlabs_tts_app.py
 ```
-For F5-TTS:
+- For F5-TTS:
 ```bash
-uv run webapps/f5-tts/f5_tts_app.py
+uv run webapps/packet_tts_apps/f5_tts_app.py
 ```
-For Zonos:
+
+- For Kokoro:
 ```bash
-uv run webapps/zonos/zonos_tts_app.py
+uv run webapps/packet_tts_apps/kokoro_tts_app.py
+```
+- For Zonos:
+```bash
+uv run webapps/generic_tts_apps/zonos_tts_app.py
 ```
 4. **The terminal will display the URL to access the webapp (e.g.)**:
 ```bash

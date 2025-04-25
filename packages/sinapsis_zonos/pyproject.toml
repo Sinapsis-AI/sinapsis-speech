@@ -1,6 +1,6 @@
 [project]
 name = "sinapsis-zonos"
-version = "0.1.1"
+version = "0.1.2"
 description = "Text to speech using the Zonos model"
 authors = [
     {name = "SinapsisAI", email = "dev@sinapsis-ai.com"},

@@ -245,7 +245,7 @@ uv pip install sinapsis-speech[all] --extra-index-url https://pypi.sinapsis.tech
 3. **Run the webapp**:
 
 ```bash
-uv run webapps/f5-tts/f5_tts_app.py
+uv run webapps/packet_tts_apps/f5_tts_app.py
 ```
 4. **The terminal will display the URL to access the webapp (e.g.)**:
 ```bash

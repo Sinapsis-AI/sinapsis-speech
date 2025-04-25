@@ -16,7 +16,7 @@ templates:
 
 - template_name: ElevenLabsTTS
   class_name: ElevenLabsTTS
-  template_input: InputTemplate
+  template_input: TextInput
   attributes:
     voice: Aria
     voice_settings:
