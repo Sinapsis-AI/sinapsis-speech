@@ -12,7 +12,8 @@ from sinapsis_core.data_containers.data_packet import (
     AudioPacket,
     DataContainer,
 )
-from sinapsis_core.template_base import Template, TemplateAttributes
+from sinapsis_core.template_base import Template
+from sinapsis_core.template_base.base_models import TemplateAttributes
 
 
 @dataclass

@@ -12,11 +12,11 @@ from elevenlabs.client import ElevenLabs, VoiceId, VoiceName
 from elevenlabs.types import OutputFormat
 from pydantic import Field
 from sinapsis_core.data_containers.data_packet import AudioPacket, DataContainer, Packet
-from sinapsis_core.template_base.template import (
-    Template,
+from sinapsis_core.template_base.base_models import (
     TemplateAttributes,
     TemplateAttributeType,
 )
+from sinapsis_core.template_base.template import Template
 from sinapsis_core.utils.env_var_keys import SINAPSIS_CACHE_DIR
 
 from sinapsis_elevenlabs.helpers.env_var_keys import ELEVENLABS_API_KEY

@@ -9,11 +9,11 @@ import torch
 import torchaudio
 from pydantic import Field
 from sinapsis_core.data_containers.data_packet import DataContainer, TextPacket
-from sinapsis_core.template_base.template import (
-    Template,
+from sinapsis_core.template_base.base_models import (
     TemplateAttributes,
     TemplateAttributeType,
 )
+from sinapsis_core.template_base.template import Template
 from sinapsis_core.utils.env_var_keys import SINAPSIS_CACHE_DIR
 from zonos.model import Zonos
 from zonos.utils import DEFAULT_DEVICE as device

@@ -1,9 +1,12 @@
 [project]
 name = "sinapsis-kokoro"
-version = "0.1.2"
+version = "0.1.3"
 description = "Text to speech using Kokoro TTS model"
 readme = "README.md"
-requires-python = ">=3.10.12"
+requires-python = ">=3.10"
+authors = [
+    {name = "SinapsisAI", email = "dev@sinapsis.tech"},
+]
 license-files = ["LICENSE"]
 dependencies = [
     "kokoro>=0.9.4",

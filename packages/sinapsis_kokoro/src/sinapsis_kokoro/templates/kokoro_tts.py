@@ -5,11 +5,11 @@ from urllib.error import HTTPError
 import torch
 from kokoro import KPipeline
 from sinapsis_core.data_containers.data_packet import AudioPacket, DataContainer
-from sinapsis_core.template_base.template import (
-    Template,
+from sinapsis_core.template_base.base_models import (
     TemplateAttributes,
     TemplateAttributeType,
 )
+from sinapsis_core.template_base.template import Template
 from sinapsis_core.utils.logging_utils import make_loguru
 
 from sinapsis_kokoro.helpers.kokoro_utils import KokoroKeys, kokoro_voices
