@@ -13,8 +13,10 @@ from elevenlabs.types import OutputFormat
 from pydantic import Field
 from sinapsis_core.data_containers.data_packet import AudioPacket, DataContainer, Packet
 from sinapsis_core.template_base.base_models import (
+    OutputTypes,
     TemplateAttributes,
     TemplateAttributeType,
+    UIPropertiesMetadata,
 )
 from sinapsis_core.template_base.template import Template
 from sinapsis_core.utils.env_var_keys import SINAPSIS_CACHE_DIR
@@ -73,6 +75,8 @@ class ElevenLabsBase(Template, abc.ABC):
         stream: bool = False
         voice: VoiceId | VoiceName | Voice = None
         voice_settings: VoiceSettings = Field(default_factory=dict)  # type: ignore[arg-type]
+
+    UIProperties = UIPropertiesMetadata(category="Elevenlabs", output_type=OutputTypes.AUDIO)
 
     def __init__(self, attributes: TemplateAttributeType) -> None:
         """Initializes the ElevenLabs API client with the given attributes."""

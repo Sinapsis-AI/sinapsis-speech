@@ -6,8 +6,10 @@ import torch
 from kokoro import KPipeline
 from sinapsis_core.data_containers.data_packet import AudioPacket, DataContainer
 from sinapsis_core.template_base.base_models import (
+    OutputTypes,
     TemplateAttributes,
     TemplateAttributeType,
+    UIPropertiesMetadata,
 )
 from sinapsis_core.template_base.template import Template
 from sinapsis_core.utils.logging_utils import make_loguru
@@ -36,6 +38,8 @@ class KokoroTTS(Template):
         speed: 1
         voice: af_heart
     """
+
+    UIProperties = UIPropertiesMetadata(category="Kokoro", output_type=OutputTypes.AUDIO)
 
     class AttributesBaseModel(TemplateAttributes):
         """

@@ -10,8 +10,10 @@ import torchaudio
 from pydantic import Field
 from sinapsis_core.data_containers.data_packet import DataContainer, TextPacket
 from sinapsis_core.template_base.base_models import (
+    OutputTypes,
     TemplateAttributes,
     TemplateAttributeType,
+    UIPropertiesMetadata,
 )
 from sinapsis_core.template_base.template import Template
 from sinapsis_core.utils.env_var_keys import SINAPSIS_CACHE_DIR
@@ -35,6 +37,8 @@ class ZonosTTS(Template):
     using the Zonos TTS model, which supports multilingual speech generation, speaker cloning,
     and fine control over various speech attributes like pitch, speaking rate, and emotions.
     """
+
+    UIProperties = UIPropertiesMetadata(category="Zonos", output_type=OutputTypes.AUDIO)
 
     class AttributesBaseModel(TemplateAttributes):
         """

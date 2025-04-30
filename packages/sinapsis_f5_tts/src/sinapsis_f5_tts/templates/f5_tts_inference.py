@@ -13,7 +13,7 @@ from sinapsis_core.data_containers.data_packet import (
     DataContainer,
 )
 from sinapsis_core.template_base import Template
-from sinapsis_core.template_base.base_models import TemplateAttributes
+from sinapsis_core.template_base.base_models import OutputTypes, TemplateAttributes, UIPropertiesMetadata
 
 
 @dataclass
@@ -146,6 +146,7 @@ class F5TTSInference(Template):
     """
 
     AttributesBaseModel = F5TTSInferenceAttributes
+    UIProperties = UIPropertiesMetadata(category="F5TTS", output_type=OutputTypes.AUDIO)
 
     def _add_attribute_to_command(self, cli_command: list[str], field_name: str, field: Any) -> None:
         """
