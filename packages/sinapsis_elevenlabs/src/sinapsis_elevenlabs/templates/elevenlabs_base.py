@@ -73,6 +73,7 @@ class ElevenLabsBase(Template, abc.ABC):
         output_format: OutputFormat = "mp3_44100_128"
         output_folder: str = os.path.join(SINAPSIS_CACHE_DIR, "elevenlabs", "audios")
         stream: bool = False
+        file_name: str = str(uuid.uuid4())
         voice: VoiceId | VoiceName | Voice = None
         voice_settings: VoiceSettings = Field(default_factory=dict)  # type: ignore[arg-type]
 
@@ -99,7 +100,7 @@ class ElevenLabsBase(Template, abc.ABC):
 
     def _save_audio(self, response: Iterator[bytes] | bytes, file_format: str) -> str:
         """Saves the audio to a file and returns the file path."""
-        output_file = os.path.join(self.attributes.output_folder, f"{uuid.uuid4()}.{file_format}")
+        output_file = os.path.join(self.attributes.output_folder, f"{self.attributes.file_name}.{file_format}")
         try:
             save(response, output_file)
             self.logger.info(f"Audio saved to: {output_file}")
