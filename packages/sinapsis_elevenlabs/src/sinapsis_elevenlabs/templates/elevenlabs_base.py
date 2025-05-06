@@ -46,6 +46,8 @@ class ElevenLabsBase(Template, abc.ABC):
         Args:
             api_key (str): The API used key to authenticate with ElevenLabs' API.
             model (Literal): The model identifier to use for speech synthesis.
+            output_file_name (str | None): Optional name for saved audio file.
+                If not provided a random UUI will be used as file name. Defaults to None.
             output_format (OutputFormat): The output audio format and quality. Options include:
                 ["mp3_22050_32", "mp3_44100_32", "mp3_44100_64", "mp3_44100_96", "mp3_44100_128",
                 "mp3_44100_192", "pcm_16000", "pcm_22050", "pcm_24000", "pcm_44100", "ulaw_8000"]
@@ -70,10 +72,10 @@ class ElevenLabsBase(Template, abc.ABC):
             "eleven_english_sts_v2",
             "eleven_multilingual_sts_v2",
         ] = "eleven_turbo_v2_5"
+        output_file_name: str | None = None
         output_format: OutputFormat = "mp3_44100_128"
         output_folder: str = os.path.join(SINAPSIS_CACHE_DIR, "elevenlabs", "audios")
         stream: bool = False
-        file_name: str = str(uuid.uuid4())
         voice: VoiceId | VoiceName | Voice = None
         voice_settings: VoiceSettings = Field(default_factory=dict)  # type: ignore[arg-type]
 
@@ -98,9 +100,14 @@ class ElevenLabsBase(Template, abc.ABC):
     def synthesize_speech(self, input_data: list[Packet]) -> RESPONSE_TYPE:
         """Abstract method for ElevenLabs speech synthesis."""
 
-    def _save_audio(self, response: Iterator[bytes] | bytes, file_format: str) -> str:
+    def _save_audio(self, response: Iterator[bytes] | bytes, file_format: str, idx: int) -> str:
         """Saves the audio to a file and returns the file path."""
-        output_file = os.path.join(self.attributes.output_folder, f"{self.attributes.file_name}.{file_format}")
+        if self.attributes.output_file_name:
+            file_name = self.attributes.output_file_name + "_" + str(idx)
+        else:
+            file_name = uuid.uuid4()
+
+        output_file = os.path.join(self.attributes.output_folder, f"{file_name}.{file_format}")
         try:
             save(response, output_file)
             self.logger.info(f"Audio saved to: {output_file}")
@@ -132,13 +139,12 @@ class ElevenLabsBase(Template, abc.ABC):
             self.logger.error(f"Value error while processing audio chunks: {e}")
             raise
 
-    def _process_audio_output(self, response: Iterator[bytes] | bytes) -> str | IO[bytes]:
+    def _process_audio_output(self, idx: int, response: Iterator[bytes] | bytes) -> str | IO[bytes]:
         """Processes a single audio output (either stream or file)."""
         if self.attributes.stream:
             return self._generate_audio_stream(response)
-        else:
-            file_format = "mp3" if "mp3" in self.attributes.output_format else "wav"
-            return self._save_audio(response, file_format)
+        file_format = "mp3" if "mp3" in self.attributes.output_format else "wav"
+        return self._save_audio(response, file_format, idx)
 
     def generate_speech(self, input_data: list[Packet]) -> list[str | IO[bytes]] | None:
         """Generates speech and saves it to a file."""
@@ -149,7 +155,7 @@ class ElevenLabsBase(Template, abc.ABC):
         if isinstance(responses, Iterator):
             responses = [responses]
 
-        audio_outputs = [self._process_audio_output(response) for response in responses]
+        audio_outputs = [self._process_audio_output(idx, response) for idx, response in enumerate(responses)]
         return audio_outputs
 
     def _handle_streaming_output(self, audio_outputs: list[str | IO[bytes]]) -> list[AudioPacket]:
