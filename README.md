@@ -31,7 +31,7 @@ This repo includes packages for performing speech synthesis using different tool
 
 * <code>sinapsis-elevenlabs</code>
 * <code>sinapsis-f5-tts</code>
-* * <code>sinapsis-kokoro</code>
+* <code>sinapsis-kokoro</code>
 * <code>sinapsis-zonos</code>
 
 Install using your preferred package manager. We strongly recommend using <code>uv</code>. To install <code>uv</code>, refer to the [official documentation](https://docs.astral.sh/uv/getting-started/installation/#installation-methods).
