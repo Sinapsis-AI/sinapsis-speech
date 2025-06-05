@@ -33,7 +33,7 @@ services:
   sinapsis-kokoro:
     extends:
       service: sinapsis-speech-main
-      file: compose_kokoro.yaml
+      file: compose.yaml
     container_name: sinapsis-kokoro
     environment:
       AGENT_CONFIG_PATH: ${AGENT_CONFIG_PATH:-packages/sinapsis_kokoro/src/sinapsis_kokoro/configs/kokoro_demo.yaml}
@@ -58,3 +58,29 @@ services:
       - "../packages/sinapsis_zonos/src/sinapsis_zonos/configs:/app/packages/sinapsis_zonos/src/sinapsis_zonos/configs"
     command: python3 webapps/generic_tts_apps/zonos_tts_app.py
 
+  sinapsis-parakeet-tdt:
+    extends:
+      service: sinapsis-speech-main
+      file: compose.yaml
+    container_name: sinapsis-parakeet-tdt
+    environment:
+      AGENT_CONFIG_PATH: ${AGENT_CONFIG_PATH:-packages/sinapsis_parakeet_tdt/src/sinapsis_parakeet_tdt/configs/parakeet_tdt_inference.yaml}
+      PYTHONPATH: /app/webapps:/lib/python3.10/:/app/.venv/lib/python3.10/site-packages:/lib/python3.10/
+    tty: true
+    volumes:
+      - "../webapps/:/app/webapps"
+      - "../packages/sinapsis_parakeet_tdt/src/sinapsis_parakeet_tdt/configs/:/app/packages/sinapsis_parakeet_tdt/src/sinapsis_parakeet_tdt/configs/"
+    command: python3 webapps/speech_to_text_apps/parakeet_tdt_app.py
+  sinapsis-orpheus-tts:
+    extends:
+      service: sinapsis-speech-main
+      file: compose.yaml
+    container_name: sinapsis-orpheus-tts
+    environment:
+      AGENT_CONFIG_PATH: ${AGENT_CONFIG_PATH:-packages/sinapsis_orpheus_tts/src/sinapsis_orpheus_tts/configs/orpheus_tts_app.yaml}
+      PYTHONPATH: /app/webapps:/lib/python3.10/:/app/.venv/lib/python3.10/site-packages:/lib/python3.10/
+    tty: true
+    volumes:
+      - "../webapps/:/app/webapps"
+      - "../packages/sinapsis_orpheus_cpp/src/sinapsis_orpheus_cpp/configs/:/app/packages/sinapsis_orpheus_cpp/src/sinapsis_orpheus_cpp/configs/"
+    command: python3 webapps/packet_tts_apps/orpheus_tts_app.py

@@ -2,13 +2,10 @@
 import importlib
 from typing import Callable
 
-_root_lib_path = "sinapsis_elevenlabs.templates"
+_root_lib_path = "sinapsis_orpheus_cpp.templates"
 
 _template_lookup = {
-    "ElevenLabsTTS": f"{_root_lib_path}.elevenlabs_tts",
-    "ElevenLabsVoiceGeneration": f"{_root_lib_path}.elevenlabs_voice_generation",
-    "ElevenLabsVoiceClone": f"{_root_lib_path}.elevenlabs_voice_clone",
-    "ElevenLabsSTS": f"{_root_lib_path}.elevenlabs_sts",
+    "OrpheusTTS": f"{_root_lib_path}.orpheus_tts",
 }
 
 

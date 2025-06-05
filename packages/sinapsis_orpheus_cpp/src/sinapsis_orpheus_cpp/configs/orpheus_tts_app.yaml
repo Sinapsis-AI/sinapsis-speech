@@ -1,0 +1,30 @@
+agent:
+  name: orpheus_tts_agent
+  description: "Agent that generates speech from text using the Orpheus TTS model."
+
+templates:
+- template_name: InputTemplate
+  class_name: InputTemplate
+  attributes: {}
+
+- template_name: OrpheusTTS
+  class_name: OrpheusTTS
+  template_input: InputTemplate
+  attributes:
+    n_gpu_layers: -1
+    n_ctx: 30000
+    model_id: "Mungert/orpheus-3b-0.1-ft-GGUF"
+    model_variant: "orpheus-3b-0.1-ft-bf16_q4_k.gguf"
+    voice_id: "tara"
+    temperature: 0.8
+    top_p: 0.95
+    top_k: 40
+    min_p: 0.05
+    pre_buffer_size: 1.5
+    max_tokens: 4096
+
+- template_name: SaveGeneratedAudio
+  class_name: AudioWriterSoundfile
+  template_input: OrpheusTTS
+  attributes:
+    save_dir: "webapp/audios"

@@ -1,6 +1,6 @@
 [project]
 name = "sinapsis-speech"
-version = "0.3.5"
+version = "0.4.0"
 description = "Generate speech using various libraries."
 authors = [
     {name = "SinapsisAI", email = "dev@sinapsis.tech"},
@@ -26,6 +26,8 @@ all = [
     "sinapsis-kokoro[all]",
     "sinapsis-speech[gradio-app]",
     "sinapsis-zonos[all]",
+    "sinapsis-parakeet-tdt[all]",
+    "sinapsis-orpheus-cpp[all]",
 ]
 gradio-app = [
     "sinapsis[webapp]>=0.2.3",
@@ -46,6 +48,9 @@ sinapsis-f5-tts = { workspace = true }
 sinapsis-kokoro = { workspace = true }
 sinapsis-zonos = { workspace = true }
 sinapsis-speech = { workspace = true }
+sinapsis-parakeet-tdt = { workspace = true }
+sinapsis-orpheus-cpp = { workspace = true }
+
 
 [[tool.uv.index]]
 url = "https://pypi.sinapsis.tech/"

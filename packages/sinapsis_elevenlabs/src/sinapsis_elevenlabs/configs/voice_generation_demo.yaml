@@ -1,0 +1,14 @@
+agent:
+  name: voice_creation
+  description: voice generation agent using Elevenlabs
+
+templates:
+- template_name: InputTemplate
+  class_name: InputTemplate
+  attributes: {}
+
+- template_name: ElevenLabsVoiceGeneration
+  class_name: ElevenLabsVoiceGeneration
+  template_input: InputTemplate
+  attributes:
+    voice_description: A clear and professional British middle-aged male voice, smooth and well-spoken. Perfect for narrations, audiobooks, and corporate content, offering a balanced and engaging delivery.

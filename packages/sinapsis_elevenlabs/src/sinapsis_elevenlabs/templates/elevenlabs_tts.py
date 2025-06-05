@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
 """Text-To-Speech template for ElevenLabs"""
 
-from typing import Iterator, Literal
+from typing import Callable, Iterator, Literal
 
 from sinapsis_core.data_containers.data_packet import TextPacket
 
 from sinapsis_elevenlabs.helpers.voice_utils import (
     create_voice_settings,
+    get_voice_id,
     load_input_text,
 )
 from sinapsis_elevenlabs.templates.elevenlabs_base import ElevenLabsBase
@@ -64,16 +65,16 @@ class ElevenLabsTTS(ElevenLabsBase):
         """
         input_text: str = load_input_text(input_data)
         try:
-            response: Iterator[bytes] = self.client.generate(
+            method: Callable[..., Iterator[bytes]] = (
+                self.client.text_to_speech.stream if self.attributes.stream else self.client.text_to_speech.convert
+            )
+            return method(
                 text=input_text,
-                voice=self.attributes.voice,
-                model=self.attributes.model,
+                voice_id=get_voice_id(self.client, self.attributes.voice),
+                model_id=self.attributes.model,
                 voice_settings=create_voice_settings(self.attributes.voice_settings),
                 output_format=self.attributes.output_format,
-                stream=self.attributes.stream,
             )
-
-            return response
         except ValueError as e:
             self.logger.error(f"Value error synthesizing speech: {e}")
             raise

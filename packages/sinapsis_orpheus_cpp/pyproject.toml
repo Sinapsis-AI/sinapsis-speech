@@ -1,0 +1,68 @@
+[project]
+name = "sinapsis-orpheus-cpp"
+version = "0.1.0"
+description = "Text to speech using Orpheus TTS model"
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [
+    {name = "SinapsisAI", email = "dev@sinapsis.tech"},
+]
+license-files = ["LICENSE"]
+dependencies = [
+    "llama-cpp-python>=0.3.4",
+    "orpheus-cpp>=0.0.3",
+]
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[[tool.uv.index]]
+url = "https://pypi.sinapsis.tech/"
+
+[[tool.uv.index]]
+name = "llama-cpp-python"
+url = "https://abetlen.github.io/llama-cpp-python/whl/cu124/"
+
+[tool.ruff]
+lint.select = [
+    "ARG",
+    "ANN",
+    "BLE",
+    "C4",
+    "E",
+    "F",
+    "FIX",
+    "FLY",
+    "I",
+    "PERF",
+    "PIE",
+    "RUF",
+    "RSE",
+    "SIM",
+    "SLOT",
+    "T10",
+    "T20",
+    "TD",
+    "TID",
+]
+lint.ignore = ['ANN401']
+line-length = 120
+show-fixes = true
+
+[tool.uv.sources]
+sinapsis-orpheus-cpp = { workspace = true }
+
+[project.urls]
+Homepage = "https://sinapsis.tech"
+Documentation = "https://docs.sinapsis.tech/docs"
+Tutorials = "https://docs.sinapsis.tech/tutorials"
+Repository = "https://github.com/Sinapsis-AI/sinapsis-speech.git"
+
+[project.optional-dependencies]
+data-tools = [
+    "sinapsis-data-readers[all]>=0.1.2",
+    "sinapsis-data-writers[soundfile]>=0.1.2",
+]
+all = [
+    "sinapsis-orpheus-cpp[data-tools]"]

@@ -1,0 +1,29 @@
+agent:
+  name: speech_to_speech
+  description: Convierte un audio de entrada a otro usando ElevenLabs STS
+
+templates:
+  - template_name: InputTemplate
+    class_name: InputTemplate
+    attributes: {}
+
+  - template_name: AudioReaderToBytes
+    class_name: AudioReaderToBytes
+    template_input: InputTemplate
+    attributes:
+      audio_file_path: "artifacts/town.mp3"
+      source: "audio_input"
+
+  - template_name: ElevenLabsSTS
+    class_name: ElevenLabsSTS
+    template_input: AudioReaderToBytes
+    attributes:
+      voice: "Aria"
+      model: "eleven_multilingual_sts_v2"
+      output_format: "mp3_44100_128"
+      stream: false
+      voice_settings:
+        stability: 0.5
+        similarity_boost: 0.5
+        style: 0.0
+        use_speaker_boost: true

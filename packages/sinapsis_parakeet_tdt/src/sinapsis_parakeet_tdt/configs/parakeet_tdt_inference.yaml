@@ -1,0 +1,24 @@
+agent:
+  name: parakeet_tdt_agent
+  description: "Agent that transcribes speech to text using the NVIDIA Parakeet TDT model."
+
+templates:
+- template_name: InputTemplate
+  class_name: InputTemplate
+  attributes: {}
+
+- template_name: AudioReaderSoundfile
+  class_name: AudioReaderSoundfile
+  template_input: InputTemplate
+  attributes:
+    audio_file_path: "artifacts/vladimir-pitch-en.mp3"
+    source: "artifacts/vladimir-pitch-en.mp3"
+
+- template_name: ParakeetTDTInference
+  class_name: ParakeetTDTInference
+  template_input: AudioReaderSoundfile
+  attributes:
+    model_name: "nvidia/parakeet-tdt-0.6b-v2"
+    enable_timestamps: true
+    timestamp_level: "word"
+    device: "cuda"

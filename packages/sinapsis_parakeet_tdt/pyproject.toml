@@ -1,0 +1,64 @@
+[project]
+name = "sinapsis-parakeet-tdt"
+version = "0.1.0"
+description = "Speech to text using Parakeet TDT model"
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [
+    {name = "SinapsisAI", email = "dev@sinapsis.tech"},
+]
+license-files = ["LICENSE"]
+dependencies = [
+    "cuda-python>=12.9.0",
+    "nemo-toolkit[asr]>=2.3.0",
+    "sinapsis>=0.2.3",
+]
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[[tool.uv.index]]
+url = "https://pypi.sinapsis.tech/"
+
+[tool.ruff]
+lint.select = [
+    "ARG",
+    "ANN",
+    "BLE",
+    "C4",
+    "E",
+    "F",
+    "FIX",
+    "FLY",
+    "I",
+    "PERF",
+    "PIE",
+    "RUF",
+    "RSE",
+    "SIM",
+    "SLOT",
+    "T10",
+    "T20",
+    "TD",
+    "TID",
+]
+lint.ignore = ['ANN401']
+line-length = 120
+show-fixes = true
+
+[tool.uv.sources]
+sinapsis-kokoro = { workspace = true }
+
+[project.urls]
+Homepage = "https://sinapsis.tech"
+Documentation = "https://docs.sinapsis.tech/docs"
+Tutorials = "https://docs.sinapsis.tech/tutorials"
+Repository = "https://github.com/Sinapsis-AI/sinapsis-speech.git"
+
+[project.optional-dependencies]
+data-tools = [
+    "sinapsis-data-readers>=0.1.2",
+]
+all = [
+    "sinapsis-parakeet-tdt[data-tools]"]

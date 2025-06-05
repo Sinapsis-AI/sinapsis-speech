@@ -19,4 +19,4 @@ if __name__ == "__main__":
     cache directory for security and file management.
     """
     sinapsis_tts = TTSAppAudioFromGeneric(CONFIG_PATH, GENERIC_KEY, "Zonos")
-    sinapsis_tts().launch(share=GRADIO_SHARE_APP, allowed_paths=[SINAPSIS_CACHE_DIR])
+    sinapsis_tts.launch(share=GRADIO_SHARE_APP, allowed_paths=[SINAPSIS_CACHE_DIR])

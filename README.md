@@ -33,6 +33,8 @@ This repo includes packages for performing speech synthesis using different tool
 * <code>sinapsis-f5-tts</code>
 * <code>sinapsis-kokoro</code>
 * <code>sinapsis-zonos</code>
+* <code>sinapsis-orpheus-cpp</code>
+* <code>sinapsis-parakeet</code>
 
 Install using your preferred package manager. We strongly recommend using <code>uv</code>. To install <code>uv</code>, refer to the [official documentation](https://docs.astral.sh/uv/getting-started/installation/#installation-methods).
 
@@ -181,6 +183,16 @@ docker compose -f docker/compose_apps.yaml up -d sinapsis-kokoro
 docker compose -f docker/compose_apps.yaml up -d sinapsis-zonos
 ```
 
+- For Orpheus-CPP:
+```bash
+docker compose -f docker/compose_apps.yaml up -d sinapsis-orpheus-tts
+```
+
+- For Parakeet:
+```bash
+docker compose -f docker/compose_apps.yaml up -d sinapsis-parakeet
+```
+
 3. **Check the logs**
 
 - For ElevenLabs:
@@ -200,6 +212,17 @@ docker logs -f sinapsis-kokoro
 ```bash
 docker logs -f sinapsis-zonos
 ```
+
+- For Orpheus-CPP:
+```bash
+docker logs -f sinapsis-orpheus-tts
+```
+
+- For Parakeet:
+```bash
+docker logs -f sinapsis-parakeet
+```
+
 4. **The logs will display the URL to access the webapp, e.g.,:**:
 ```bash
 Running on local URL:  http://127.0.0.1:7860
@@ -215,6 +238,17 @@ docker compose -f docker/compose_apps.yaml down
 <summary id="virtual-environment"><strong><span style="font-size: 1.4em;">💻 UV</span></strong></summary>
 
 To run the webapp using the <code>uv</code> package manager, follow these steps:
+
+
+> [!IMPORTANT]
+> If you're using sinapsis-orpheus-cpp, you need to export cuda environment variables:
+
+
+```bash
+export CMAKE_ARGS="-DGGML_CUDA=on"
+export FORCE_CMAKE="1"
+export CUDACXX=$(command -v nvcc)
+```
 
 1. **Sync the virtual environment**:
 

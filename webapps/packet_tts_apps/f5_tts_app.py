@@ -22,4 +22,4 @@ if __name__ == "__main__":
     designated Sinapsis cache directory.
     """
     sinapsis_tts = TTSAppAudioFromPacket(CONFIG_PATH, BASE_AUDIO_PATH, "F5TTS")
-    sinapsis_tts().launch(share=GRADIO_SHARE_APP, allowed_paths=[SINAPSIS_CACHE_DIR])
+    sinapsis_tts.launch(share=GRADIO_SHARE_APP, allowed_paths=[SINAPSIS_CACHE_DIR])

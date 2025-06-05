@@ -1,0 +1,15 @@
+agent:
+  name: voice_clone
+  description: Clone a voice using ElevenLabs from a user-provided audio sample
+
+templates:
+  - template_name: InputTemplate
+    class_name: InputTemplate
+    attributes: {}
+
+  - template_name: ElevenLabsVoiceClone
+    class_name: ElevenLabsVoiceClone
+    template_input: InputTemplate
+    attributes:
+      name: Cloned Voice
+      description: Voice cloned from user audio sample

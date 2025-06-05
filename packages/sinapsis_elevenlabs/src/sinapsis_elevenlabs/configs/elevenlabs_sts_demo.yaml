@@ -1,0 +1,22 @@
+agent:
+  name: speech_to_speech
+  description: Convert input audio to another voice using ElevenLabs STS
+
+templates:
+  - template_name: InputTemplate
+    class_name: InputTemplate
+    attributes: {}
+
+  - template_name: ElevenLabsSTS
+    class_name: ElevenLabsSTS
+    template_input: InputTemplate
+    attributes:
+      voice: Aria
+      model: eleven_multilingual_sts_v2
+      output_format: mp3_44100_128
+      stream: false
+      voice_settings:
+        stability: 0.5
+        similarity_boost: 0.5
+        style: 0.0
+        use_speaker_boost: true

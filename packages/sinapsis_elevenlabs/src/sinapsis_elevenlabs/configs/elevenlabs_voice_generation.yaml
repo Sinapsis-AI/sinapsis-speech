@@ -1,0 +1,20 @@
+agent:
+  name: voice_creation
+  description: voice generation agent using Elevenlabs
+
+templates:
+- template_name: InputTemplate
+  class_name: InputTemplate
+  attributes: {}
+
+- template_name: TextInput
+  class_name: TextInput
+  template_input: InputTemplate
+  attributes:
+    text: En la oscuridad de la noche, se escuchaban los llantos lejanos de una mujer. Nadie sabía exactamente de dónde venían, pero todos los habitantes del pueblo aseguraban que era el llanto de La Llorona. Se decía que era el espíritu de una mujer que, en vida, había perdido a sus hijos y que, condenada por su dolor y su culpa, deambulaba por las orillas de los ríos buscando a sus pequeños. Nadie se atrevía a acercarse al agua cuando oían su llanto, pues sabían que, si la escuchabas cerca, su destino también estaba sellado...
+
+- template_name: ElevenLabsVoiceGeneration
+  class_name: ElevenLabsVoiceGeneration
+  template_input: TextInput
+  attributes:
+    voice_description: A warm and engaging Mexican Spanish female voice, perfect for storytelling, audiobooks, and podcasts. Clear and expressive, with a natural, captivating tone, ideal for social media, YouTube, TikTok, and more.
