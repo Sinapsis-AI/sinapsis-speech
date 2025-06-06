@@ -20,7 +20,7 @@ Sinapsis Orpheus-CPP
 <a href="#packages">🔍 License</a>
 </p>
 
-This **Sinapsis Orpheus-TTS** package provides a template for seamlessly integrating, configuring, and running **text-to-speech (TTS)** functionalities powered by [Orpheus-TTS](https://github.com/shivammehta25/Orpheus).
+This **Sinapsis Orpheus-CPP** package provides a template for seamlessly integrating, configuring, and running **text-to-speech (TTS)** functionalities powered by [Orpheus-TTS](https://github.com/shivammehta25/Orpheus).
 
 <h2 id="installation">🐍 Installation</h2>
 
@@ -29,11 +29,11 @@ If you need to install <code>uv</code> please see the [official documentation](h
 
 Example with <code>uv</code>:
 ```bash
-  uv pip install sinapsis-orpheus-tts --extra-index-url https://pypi.sinapsis.tech
+  uv pip install sinapsis-orpheus-cpp --extra-index-url https://pypi.sinapsis.tech
 ```
  or with raw <code>pip</code>:
 ```bash
-  pip install sinapsis-orpheus-tts --extra-index-url https://pypi.sinapsis.tech
+  pip install sinapsis-orpheus-cpp --extra-index-url https://pypi.sinapsis.tech
 ```
 
 > [!IMPORTANT]
@@ -42,11 +42,11 @@ Example with <code>uv</code>:
 with <code>uv</code>:
 
 ```bash
-  uv pip install sinapsis-orpheus-tts[all] --extra-index-url https://pypi.sinapsis.tech
+  uv pip install sinapsis-orpheus-cpp[all] --extra-index-url https://pypi.sinapsis.tech
 ```
  or with raw <code>pip</code>:
 ```bash
-  pip install sinapsis-orpheus-tts[all] --extra-index-url https://pypi.sinapsis.tech
+  pip install sinapsis-orpheus-cpp[all] --extra-index-url https://pypi.sinapsis.tech
 ```
 
 <h2 id="features">🚀 Features

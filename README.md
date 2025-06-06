@@ -82,9 +82,13 @@ This repository is organized into modular packages, each designed for integratio
 <details>
 <summary id="elevenlabs"><strong><span style="font-size: 1.4em;"> Sinapsis ElevenLabs </span></strong></summary>
 
-This package offers a suite of templates and utilities designed for effortless integrating, configuration, and execution of **text-to-speech (TTS)** and **voice generation** functionalities powered by [ElevenLabs](https://elevenlabs.io/).
+This package offers a suite of templates and utilities designed for effortless integrating, configuration, and execution of **text-to-speech (TTS)**, **speech-to-speech (STS)**, **voice cloning**, and **voice generation** functionalities powered by [ElevenLabs](https://elevenlabs.io/).
+
+- **ElevenLabsSTS**: Template for transforming a voice into a different character or style using the ElevenLabs Speech-to-Speech API.
 
 - **ElevenLabsTTS**: Template for converting text into speech using ElevenLabs' voice models.
+
+- **ElevenLabsVoiceClone**: Template for creating a synthetic copy of an existing voice using the ElevenLabs API.
 
 - **ElevenLabsVoiceGeneration**: Template for generating custom synthetic voices based on user-provided descriptions.
 
@@ -183,7 +187,6 @@ cd sinapsis-speech
 ```bash
 docker compose -f docker/compose.yaml build
 ```
-
 
 2. **Start the app container**:
 

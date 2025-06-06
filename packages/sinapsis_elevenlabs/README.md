@@ -20,7 +20,7 @@ Sinapsis Elevenlabs
 <a href="#packages">🔍 License</a>
 </p>
 
-This **Sinapsis Elevenlabs** package offers a suite of templates and utilities designed for effortless integrating, configuration, and execution of **text-to-speech (TTS)** and **voice generation** functionalities powered by [ElevenLabs](https://elevenlabs.io/).
+This **Sinapsis Elevenlabs** package offers a suite of templates and utilities designed for effortless integrating, configuration, and execution of **text-to-speech (TTS)**, **speech-to-speech (STS)**, **voice cloning**, and **voice generation** functionalities powered by [ElevenLabs](https://elevenlabs.io/).
 
 
 <h2 id="installation">🐍 Installation</h2>
@@ -60,17 +60,61 @@ Or with raw <code>pip</code>:
 
 <h3>Templates Supported</h3>
 
+- **ElevenLabsSTS**: Template for transforming a voice into a different character or style using the ElevenLabs Speech-to-Speech API.
+
+    <details>
+    <summary>Attributes</summary>
+
+    - `api_key`(Optional): The API key used to authenticate with ElevenLabs' API. Although this parameter is optional in the function signature, **the API key must be provided** either through this argument or the `ELEVENLABS_API_KEY` environmental variable. If neither is provided, an error will be logged, and no speech    will be generated.
+    - `model`(Optional): The model identifier to use for speech synthesis (default: `eleven_multilingual_sts_v2`). Options: `eleven_english_sts_v2`, `eleven_multilingual_sts_v2`.
+    - `output_format`(Optional): The output audio format and quality (default: `mp3_44100_128`). Options: `mp3_22050_32`, `mp3_44100_32`, `mp3_44100_64`, `mp3_44100_96`, `mp3_44100_128`, `mp3_44100_192`, `pcm_16000`, `pcm_22050`, `pcm_24000`, `pcm_44100`, `ulaw_8000`.
+    - `output_folder`(Optional): The folder where generated audio files will be saved (default: `SINAPSIS_CACHE_DIR/elevenlabs/ audios`).
+    - `stream`(Optional): If True, the audio is returned as a stream; otherwise, saved to a file (default: `False`).
+    - `streaming_latency`(Optional): Latency optimization for streaming (default: None).
+    - `voice`(Optional): Voice for speech synthesis. Can be a voice ID (str), name (str), or ElevenLabs voice object (Voice) (default: None).
+    - `voice_settings`(Optional):Dictionary of voice control settings:
+        - `stability`: Controls voice randomness and emotional range (range: 0.0 to 1.0).
+        - `similarity_boost`: Adjusts how closely the voice matches the original (range: 0.0 to 1.0).
+        - `style`: Amplifies the speaker’s style, consuming more resources (range: 0.0 to 1.0).
+        - `use_speaker_boost`: Increases similarity to the speaker with higher computational cost (boolean: `True` or `False`).
+        - `speed`: Adjusts speech speed (range: 0.7 to 1.2, default: 1.0).
+    </details>
+
+
 - **ElevenLabsTTS**: Template for converting text into speech using ElevenLabs' voice models.
 
     <details>
     <summary>Attributes</summary>
 
-    - `api_key`(Optional): The API key used to authenticate with ElevenLabs' API. Although this parameter is    optional in the function signature, **the API key must be provided** either through this argument or the `ELEVENLABS_API_KEY` environmental variable. If neither is provided, an error will be logged, and no speech    will be generated.
-    - `model`(Optional): The model identifier to use for speech synthesis (default: `eleven_turbo_v2_5eleven_turbo_v2_5`). Options: `eleven_turbo_v2_5`, `eleven_multilingual_v2`, `eleven_turbo_v2`, `eleven_monolingual_v1`, `eleven_multilingual_v1`.
+    - `api_key`(Optional): The API key used to authenticate with ElevenLabs' API. Although this parameter is optional in the function signature, **the API key must be provided** either through this argument or the `ELEVENLABS_API_KEY` environmental variable. If neither is provided, an error will be logged, and no speech    will be generated.
+    - `model`(Optional): The model identifier to use for speech synthesis (default: `eleven_turbo_v2_5`). Options: `eleven_turbo_v2_5`, `eleven_multilingual_v2`, `eleven_turbo_v2`, `eleven_monolingual_v1`, `eleven_multilingual_v1`.
     - `output_format`(Optional): The output audio format and quality (default: `mp3_44100_128`). Options: `mp3_22050_32`, `mp3_44100_32`, `mp3_44100_64`, `mp3_44100_96`, `mp3_44100_128`, `mp3_44100_192`, `pcm_16000`, `pcm_22050`, `pcm_24000`, `pcm_44100`, `ulaw_8000`.
-    - `output_folder`(Optional): The folder where generated audio files will be saved (default: `SINAPSIS_CACHE_DIR/elevenlabs/ audios`).
+    - `output_folder`(Optional): The folder where generated audio files will be saved (default: `SINAPSIS_CACHE_DIR/elevenlabs/audios`).
     - `stream`(Optional): If True, the audio is returned as a stream; otherwise, saved to a file (default: `False`).
     - `voice`(Optional): Voice for speech synthesis. Can be a voice ID (str), name (str), or ElevenLabs voice object (Voice) (default: None).
+    - `voice_settings`(Optional):Dictionary of voice control settings:
+        - `stability`: Controls voice randomness and emotional range (range: 0.0 to 1.0).
+        - `similarity_boost`: Adjusts how closely the voice matches the original (range: 0.0 to 1.0).
+        - `style`: Amplifies the speaker’s style, consuming more resources (range: 0.0 to 1.0).
+        - `use_speaker_boost`: Increases similarity to the speaker with higher computational cost (boolean: `True` or `False`).
+        - `speed`: Adjusts speech speed (range: 0.7 to 1.2, default: 1.0).
+    </details>
+
+- **ElevenLabsVoiceClone**: Template for creating a synthetic copy of an existing voice using the ElevenLabs API.
+
+    <details>
+    <summary>Attributes</summary>
+
+    - `api_key`(Optional): The API key used to authenticate with ElevenLabs' API. Although this parameter is optional in the function signature, **the API key must be provided** either through this argument or the `ELEVENLABS_API_KEY` environmental variable. If neither is provided, an error will be logged, and no speech will be generated.
+    - `description`(Optional): Description for the cloned voice (default: None).
+    - `model`(Optional): The model identifier to use for speech synthesis (default: `eleven_turbo_v2_5`). Options: `eleven_turbo_v2_5`, `eleven_multilingual_v2`, `eleven_turbo_v2`, `eleven_monolingual_v1`, `eleven_multilingual_v1`.
+    - `name`(Optional): Name for the cloned voice (default: None). If None, a default name may be used.
+    - `output_format`(Optional): The output audio format and quality (default: `mp3_44100_128`). Options: `mp3_22050_32`, `mp3_44100_32`, `mp3_44100_64`, `mp3_44100_96`, `mp3_44100_128`, `mp3_44100_192`, `pcm_16000`, `pcm_22050`, `pcm_24000`, `pcm_44100`, `ulaw_8000`.
+    - `output_folder`(Optional): The folder where generated audio files will be saved (default: `SINAPSIS_CACHE_DIR/elevenlabs/audios`).
+    - `remove_background_noise`(Optional): Whether to remove background noise from samples (default: `False`).
+    - `stream`(Optional): If True, the audio is returned as a stream; otherwise, saved to a file (default: `False`).
+    - `voice`(Optional): Voice for speech synthesis. Can be a voice ID (str), name (str), or ElevenLabs voice object (Voice) (default: None).
+    - `voice_description`(Required): A description of the voice to be used for synthesis. This field is mandatory and helps to define the voice's characteristics or style.
     - `voice_settings`(Optional):Dictionary of voice control settings:
         - `stability`: Controls voice randomness and emotional range (range: 0.0 to 1.0).
         - `similarity_boost`: Adjusts how closely the voice matches the original (range: 0.0 to 1.0).
@@ -84,18 +128,18 @@ Or with raw <code>pip</code>:
     <details>
     <summary>Attributes</summary>
 
-    - `api_key`(Optional): The API key used to authenticate with ElevenLabs' API. Although this parameter is    optional in the function signature, **the API key must be provided** either through this argument or the    `ELEVENLABS_API_KEY` environmental variable. If neither is provided, an error will be logged, and no speech    will be generated.
-    - `model`(Optional): The model identifier to use for speech synthesis (default:     `eleven_turbo_v2_5eleven_turbo_v2_5`). Options: `eleven_turbo_v2_5`, `eleven_multilingual_v2`,    `eleven_turbo_v2`, `eleven_monolingual_v1`, `eleven_multilingual_v1`.
-    - `output_format`(Optional): The output audio format and quality (default: `mp3_44100_128`). Options:     `mp3_22050_32`, `mp3_44100_32`, `mp3_44100_64`, `mp3_44100_96`, `mp3_44100_128`, `mp3_44100_192`,     `pcm_16000`, `pcm_22050`, `pcm_24000`, `pcm_44100`, `ulaw_8000`.
-    - `output_folder`(Optional): The folder where generated audio files will be saved (default:     `SINAPSIS_CACHE_DIR/elevenlabs/ audios`).
-    - `stream`(Optional): If True, the audio is returned as a stream; otherwise, saved to a file (default:    `False`).
+    - `api_key`(Optional): The API key used to authenticate with ElevenLabs' API. Although this parameter is optional in the function signature, **the API key must be provided** either through this argument or the `ELEVENLABS_API_KEY` environmental variable. If neither is provided, an error will be logged, and no speech will be generated.
+    - `model`(Optional): The model identifier to use for speech synthesis (default: `eleven_turbo_v2_5`). Options: `eleven_turbo_v2_5`, `eleven_multilingual_v2`, `eleven_turbo_v2`, `eleven_monolingual_v1`, `eleven_multilingual_v1`.
+    - `output_format`(Optional): The output audio format and quality (default: `mp3_44100_128`). Options: `mp3_22050_32`, `mp3_44100_32`, `mp3_44100_64`, `mp3_44100_96`, `mp3_44100_128`, `mp3_44100_192`, `pcm_16000`, `pcm_22050`, `pcm_24000`, `pcm_44100`, `ulaw_8000`.
+    - `output_folder`(Optional): The folder where generated audio files will be saved (default: `SINAPSIS_CACHE_DIR/elevenlabs/audios`).
+    - `stream`(Optional): If True, the audio is returned as a stream; otherwise, saved to a file (default: `False`).
     - `voice`(Optional): Voice for speech synthesis. Can be a voice ID (str), name (str), or ElevenLabs voice object (Voice) (default: None).
     - `voice_description`(Required): A description of the voice to be used for synthesis. This field is mandatory and helps to define the voice's characteristics or style.
     - `voice_settings`(Optional):Dictionary of voice control settings:
         - `stability`: Controls voice randomness and emotional range (range: 0.0 to 1.0).
         - `similarity_boost`: Adjusts how closely the voice matches the original (range: 0.0 to 1.0).
         - `style`: Amplifies the speaker’s style, consuming more resources (range: 0.0 to 1.0).
-        - `use_speaker_boost`: Increases similarity to the speaker with higher computational cost (boolean:     `True` or `False`).
+        - `use_speaker_boost`: Increases similarity to the speaker with higher computational cost (boolean: `True` or `False`).
         - `speed`: Adjusts speech speed (range: 0.7 to 1.2, default: 1.0).
     </details>
 
