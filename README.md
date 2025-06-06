@@ -122,6 +122,30 @@ For specific instructions and further details, see the [README.md](https://githu
 
 </details>
 
+
+<details>
+<summary id="orpheus-cpp"><strong><span style="font-size: 1.4em;"> Sinapsis Orppheus-CPP</span></strong></summary>
+
+This package provides a template for seamlessly integrating, configuring, and running **text-to-speech (TTS)** functionalities powered by [Orpheus-TTS](https://github.com/shivammehta25/Orpheus).
+
+- **OrpheusTTS**: Converts text to speech using the Orpheus TTS model with advanced neural voice synthesis. The template processes text packets from the input container, generates corresponding audio using Orpheus TTS, and adds the resulting audio packets to the container. Features graceful error handling for out-of-memory conditions
+
+For specific instructions and further details, see the [README.md](https://github.com/Sinapsis-AI/sinapsis-speech/blob/main/packages/sinapsis_zonos/README.md).
+
+</details>
+
+<details>
+<summary id="parakeet-tdt"><strong><span style="font-size: 1.4em;"> Sinapsis Parakeet-TDT</span></strong></summary>
+
+This package provides a template for seamlessly integrating, configuring, and running **speech-to-text (STT)** functionalities powered by [NVIDIA's Parakeet TDT model](https://huggingface.co/nvidia/parakeet-tdt-0.6b-v2).
+
+
+- **ParakeetTDTInference**: Converts speech to text using NVIDIA's Parakeet TDT 0.6B model. This template processes audio packets from the input container or specified file paths, performs transcription with optional timestamp prediction, and adds the resulting text packets to the container.
+
+For specific instructions and further details, see the [README.md](https://github.com/Sinapsis-AI/sinapsis-speech/blob/main/packages/sinapsis_zonos/README.md).
+
+</details>
+
 <h2 id="webapp">🌐 Webapps</h2>
 The webapps included in this project showcase the modularity of the templates, in this case for speech generation tasks.
 
