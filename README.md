@@ -130,7 +130,7 @@ This package provides a template for seamlessly integrating, configuring, and ru
 
 - **OrpheusTTS**: Converts text to speech using the Orpheus TTS model with advanced neural voice synthesis. The template processes text packets from the input container, generates corresponding audio using Orpheus TTS, and adds the resulting audio packets to the container. Features graceful error handling for out-of-memory conditions
 
-For specific instructions and further details, see the [README.md](https://github.com/Sinapsis-AI/sinapsis-speech/blob/main/packages/sinapsis_zonos/README.md).
+For specific instructions and further details, see the [README.md](https://github.com/Sinapsis-AI/sinapsis-speech/blob/main/packages/sinapsis_orpheus_cpp/README.md).
 
 </details>
 
@@ -142,7 +142,7 @@ This package provides a template for seamlessly integrating, configuring, and ru
 
 - **ParakeetTDTInference**: Converts speech to text using NVIDIA's Parakeet TDT 0.6B model. This template processes audio packets from the input container or specified file paths, performs transcription with optional timestamp prediction, and adds the resulting text packets to the container.
 
-For specific instructions and further details, see the [README.md](https://github.com/Sinapsis-AI/sinapsis-speech/blob/main/packages/sinapsis_zonos/README.md).
+For specific instructions and further details, see the [README.md](https://github.com/Sinapsis-AI/sinapsis-speech/blob/main/packages/sinapsis_parakeet_tdt/README.md).
 
 </details>
 
