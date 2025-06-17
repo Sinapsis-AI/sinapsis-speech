@@ -9,7 +9,7 @@ Sinapsis Speech
 <br>
 </h1>
 
-<h4 align="center"> Templates for a wide range of voice generation tasks.</h4>
+<h4 align="center"> A monorepo housing multiple packages and templates for versatile voice generation, text-to-speech, speech-to-text, and beyond.</h4>
 
 <p align="center">
 <a href="#installation">🐍 Installation</a> •
