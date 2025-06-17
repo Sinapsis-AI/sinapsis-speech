@@ -130,7 +130,7 @@ For specific instructions and further details, see the [README.md](https://githu
 <details>
 <summary id="orpheus-cpp"><strong><span style="font-size: 1.4em;"> Sinapsis Orppheus-CPP</span></strong></summary>
 
-This package provides a template for seamlessly integrating, configuring, and running **text-to-speech (TTS)** functionalities powered by [Orpheus-TTS](https://github.com/shivammehta25/Orpheus).
+This package provides a template for seamlessly integrating, configuring, and running **text-to-speech (TTS)** functionalities powered by [Orpheus-TTS](https://github.com/canopyai/Orpheus-TTS).
 
 - **OrpheusTTS**: Converts text to speech using the Orpheus TTS model with advanced neural voice synthesis. The template processes text packets from the input container, generates corresponding audio using Orpheus TTS, and adds the resulting audio packets to the container. Features graceful error handling for out-of-memory conditions
 
