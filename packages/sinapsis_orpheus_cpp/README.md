@@ -20,7 +20,7 @@ Sinapsis Orpheus-CPP
 <a href="#packages">🔍 License</a>
 </p>
 
-This **Sinapsis Orpheus-CPP** package provides a template for seamlessly integrating, configuring, and running **text-to-speech (TTS)** functionalities powered by [Orpheus-TTS](https://github.com/shivammehta25/Orpheus).
+This **Sinapsis Orpheus-CPP** package provides a template for seamlessly integrating, configuring, and running **text-to-speech (TTS)** functionalities powered by [Orpheus-TTS](https://github.com/canopyai/Orpheus-TTS).
 
 <h2 id="installation">🐍 Installation</h2>
 
@@ -57,7 +57,7 @@ with <code>uv</code>:
 
 This module includes a template for text-to-speech synthesis using the Orpheus TTS model:
 
-**OrpheusTTS**: Converts text to speech using the Orpheus TTS model with advanced neural voice synthesis. The template processes text packets from the input container, generates corresponding audio using Orpheus TTS, and adds the resulting audio packets to the container. Features graceful error handling for out-of-memory conditions.
+**OrpheusTTS**: Advanced text-to-speech synthesis template powered by Orpheus TTS, delivering human-like speech with natural intonation, emotion, and rhythm that surpasses state-of-the-art closed-source models. The template supports expressive speech synthesis through emotive tags including `<laugh>`, `<chuckle>`, `<sigh>`, `<cough>`, `<sniffle>`, `<groan>`, `<yawn>`, and `<gasp>` for enhanced vocal expressions. Additionally, it provides multi-language support when configured with the appropriate Hugging Face model path, making it versatile for global applications.
 
 <details>
 <summary>Attributes</summary>

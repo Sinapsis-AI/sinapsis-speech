@@ -55,7 +55,7 @@ with <code>uv</code>:
 
 This module includes a template for speech-to-text transcription using the Parakeet TDT model:
 
-**ParakeetTDTInference**: Converts speech to text using NVIDIA's Parakeet TDT 0.6B model. This template processes audio packets from the input container or specified file paths, performs transcription with optional timestamp prediction, and adds the resulting text packets to the container.
+**ParakeetTDTInference**: Advanced speech-to-text transcription template powered by NVIDIA's Parakeet TDT 0.6B model, designed for high-quality English transcription with exceptional accuracy across a wide array of accents and dialects, vocal ranges, and diverse domains and noise conditions. The template features comprehensive support for punctuation, capitalization, and accurate timestamp prediction, ensuring professional-grade transcription results. It seamlessly processes audio packets from the input container or specified file paths.
 
 <details>
 <summary>Attributes</summary>
