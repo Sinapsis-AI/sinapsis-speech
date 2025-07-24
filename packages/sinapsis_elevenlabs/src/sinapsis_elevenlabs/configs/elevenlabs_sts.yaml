@@ -11,7 +11,7 @@ templates:
     class_name: AudioReaderToBytes
     template_input: InputTemplate
     attributes:
-      audio_file_path: "artifacts/town.mp3"
+      audio_file_path: "artifacts/small.mp3"
       source: "audio_input"
 
   - template_name: ElevenLabsSTS
@@ -27,3 +27,9 @@ templates:
         similarity_boost: 0.5
         style: 0.0
         use_speaker_boost: true
+  - template_name: AudioWriterSoundfile
+    class_name: AudioWriterSoundfile
+    template_input: ElevenLabsSTS
+    attributes:
+      save_dir: "artifacts"
+      extension: "wav"

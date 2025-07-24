@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from typing import Generator
+from typing import Generator, Literal
 from urllib.error import HTTPError
 
 import torch
@@ -15,6 +15,7 @@ from sinapsis_core.template_base.template import Template
 from sinapsis_core.utils.logging_utils import make_loguru
 
 from sinapsis_kokoro.helpers.kokoro_utils import KokoroKeys, kokoro_voices
+from sinapsis_kokoro.helpers.tags import Tags
 
 
 class KokoroTTS(Template):
@@ -39,7 +40,11 @@ class KokoroTTS(Template):
         voice: af_heart
     """
 
-    UIProperties = UIPropertiesMetadata(category="Kokoro", output_type=OutputTypes.AUDIO)
+    UIProperties = UIPropertiesMetadata(
+        category="Kokoro",
+        output_type=OutputTypes.AUDIO,
+        tags=[Tags.AUDIO, Tags.AUDIO_GENERATION, Tags.KOKORO, Tags.SPEECH, Tags.TEXT_TO_SPEECH],
+    )
 
     class AttributesBaseModel(TemplateAttributes):
         """
@@ -56,6 +61,7 @@ class KokoroTTS(Template):
             https://huggingface.co/hexgrad/Kokoro-82M/blob/main/VOICES.md
         """
 
+        device: Literal["cpu", "cuda"] = "cpu"
         speed: int | float = 1
         split_pattern: str = r"\n+"
         voice: kokoro_voices = KokoroKeys.default_voice
@@ -73,7 +79,7 @@ class KokoroTTS(Template):
         Returns:
             KPipeline: The initialized TTS pipeline for generating speech.
         """
-        return KPipeline(lang_code=self.attributes.voice[0], repo_id=KokoroKeys.repo_id)
+        return KPipeline(lang_code=self.attributes.voice[0], repo_id=KokoroKeys.repo_id, device=self.attributes.device)
 
     def _create_audio_packet(
         self,
@@ -151,3 +157,8 @@ class KokoroTTS(Template):
         self.generate_speech(container)
 
         return container
+
+    def reset_state(self, template_name: str | None = None) -> None:
+        if "cuda" in self.attributes.device:
+            torch.cuda.empty_cache()
+        super().reset_state(template_name)

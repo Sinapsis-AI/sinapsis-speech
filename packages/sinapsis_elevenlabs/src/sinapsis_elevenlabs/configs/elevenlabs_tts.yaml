@@ -25,8 +25,9 @@ templates:
       style: 0.0
       use_speaker_boost: True
 
-
-
-
-
-
+- template_name: AudioWriterSoundfile
+  class_name: AudioWriterSoundfile
+  template_input: ElevenLabsTTS
+  attributes:
+    save_dir: "elevenlabs"
+    extension: "wav"

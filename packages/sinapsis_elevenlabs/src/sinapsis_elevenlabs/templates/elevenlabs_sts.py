@@ -5,8 +5,12 @@ from typing import Callable, Iterator, Literal
 
 from sinapsis_core.data_containers.data_packet import AudioPacket
 
+from sinapsis_elevenlabs.helpers.tags import Tags
 from sinapsis_elevenlabs.helpers.voice_utils import create_voice_settings, get_voice_id
 from sinapsis_elevenlabs.templates.elevenlabs_base import ElevenLabsBase
+
+ElevenLabsSTSUIProperties = ElevenLabsBase.UIProperties
+ElevenLabsSTSUIProperties.tags.extend([Tags.SPEECH_TO_SPEECH, Tags.VOICE_CONVERSION])
 
 
 class ElevenLabsSTS(ElevenLabsBase):
@@ -31,7 +35,7 @@ class ElevenLabsSTS(ElevenLabsBase):
         model: eleven_multilingual_sts_v2
         output_file_name: null
         output_format: mp3_44100_128
-        output_folder: ~/.cache/sinapsis/elevenlabs/audios
+        output_folder: <WORKING_DIR>/elevenlabs/audios
         stream: false
         voice: null
         voice_settings:
@@ -45,6 +49,7 @@ class ElevenLabsSTS(ElevenLabsBase):
     """
 
     PACKET_TYPE_NAME: str = "audios"
+    UIProperties = ElevenLabsSTSUIProperties
 
     class AttributesBaseModel(ElevenLabsBase.AttributesBaseModel):
         """Attributes specific to ElevenLabs STS API interaction.
@@ -73,9 +78,8 @@ class ElevenLabsSTS(ElevenLabsBase):
             KeyError: If the expected key is missing in the API response.
         """
         try:
-            method: Callable[..., Iterator[bytes]] = (
-                self.client.speech_to_speech.stream if self.attributes.stream else self.client.speech_to_speech.convert
-            )
+            method: Callable[..., Iterator[bytes]] = self.client.speech_to_speech.stream  # (
+
             return method(
                 voice_id=get_voice_id(self.client, voice=self.attributes.voice),
                 audio=input_data[0].content,

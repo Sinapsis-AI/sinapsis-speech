@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import numpy as np
+import torch
 from llama_cpp import Llama
 from orpheus_cpp import OrpheusCpp
 from orpheus_cpp.model import TTSOptions
@@ -18,6 +19,7 @@ from sinapsis_core.template_base.base_models import (
 )
 from sinapsis_core.utils.env_var_keys import SINAPSIS_CACHE_DIR
 
+from sinapsis_orpheus_cpp.helpers.tags import Tags
 from sinapsis_orpheus_cpp.thirdparty.helpers import download_model, setup_snac_session
 
 
@@ -129,7 +131,11 @@ class OrpheusTTS(Template):
     """
 
     AttributesBaseModel = OrpheusTTSAttributes
-    UIProperties = UIPropertiesMetadata(category="TTS", output_type=OutputTypes.AUDIO)
+    UIProperties = UIPropertiesMetadata(
+        category="TTS",
+        output_type=OutputTypes.AUDIO,
+        tags=[Tags.AUDIO, Tags.AUDIO_GENERATION, Tags.ORPHEUS_CPP, Tags.SPEECH, Tags.TEXT_TO_SPEECH],
+    )
 
     def __init__(self, attributes: TemplateAttributeType) -> None:
         super().__init__(attributes)
@@ -154,8 +160,9 @@ class OrpheusTTS(Template):
             model_variant=self.attributes.model_variant,
             cache_dir=self.attributes.cache_dir,
         )
-        self._setup_llm(model_file)
-        self._setup_snac_session()
+        if model_file:
+            self._setup_llm(model_file)
+            self._setup_snac_session()
 
     def _setup_llm(self, model_file: str) -> None:
         """Setup the Large Language Model component with specified parameters.
@@ -298,3 +305,8 @@ class OrpheusTTS(Template):
                 container.audios.append(audio_packet)
 
         return container
+
+    def reset_state(self, template_name: str | None = None) -> None:
+        if torch.cuda.is_available():
+            torch.cuda.empty_cache()
+        super().reset_state(template_name)

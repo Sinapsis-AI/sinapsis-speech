@@ -42,6 +42,12 @@ templates:
     unconditional_keys:
       - dnsmos_ovrl
       - vqscore_8
+- template_name: AudioWriterSoundfile
+  class_name: AudioWriterSoundfile
+  template_input: ZonosTTS
+  attributes:
+    save_dir: "zonos"
+    extension: "wav"
 
 
 

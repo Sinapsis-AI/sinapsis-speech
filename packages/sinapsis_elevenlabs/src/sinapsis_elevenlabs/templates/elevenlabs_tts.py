@@ -5,12 +5,16 @@ from typing import Callable, Iterator, Literal
 
 from sinapsis_core.data_containers.data_packet import TextPacket
 
+from sinapsis_elevenlabs.helpers.tags import Tags
 from sinapsis_elevenlabs.helpers.voice_utils import (
     create_voice_settings,
     get_voice_id,
     load_input_text,
 )
 from sinapsis_elevenlabs.templates.elevenlabs_base import ElevenLabsBase
+
+ElevenLabsTTSUIProperties = ElevenLabsBase.UIProperties
+ElevenLabsTTSUIProperties.tags.extend([Tags.TEXT_TO_SPEECH])
 
 
 class ElevenLabsTTS(ElevenLabsBase):
@@ -36,7 +40,7 @@ class ElevenLabsTTS(ElevenLabsBase):
         voice_settings: null
         model: eleven_turbo_v2_5
         output_format: mp3_44100_128
-        output_folder: /sinapsis/cache/dir/elevenlabs/audios
+        output_folder: <WORKING_DIR>/elevenlabs/audios
         stream: false
 
     """
@@ -65,9 +69,8 @@ class ElevenLabsTTS(ElevenLabsBase):
         """
         input_text: str = load_input_text(input_data)
         try:
-            method: Callable[..., Iterator[bytes]] = (
-                self.client.text_to_speech.stream if self.attributes.stream else self.client.text_to_speech.convert
-            )
+            method: Callable[..., Iterator[bytes]] = self.client.text_to_speech.stream
+
             return method(
                 text=input_text,
                 voice_id=get_voice_id(self.client, self.attributes.voice),

@@ -18,3 +18,9 @@ templates:
   template_input: TextInput
   attributes:
     voice_description: A warm and engaging Mexican Spanish female voice, perfect for storytelling, audiobooks, and podcasts. Clear and expressive, with a natural, captivating tone, ideal for social media, YouTube, TikTok, and more.
+- template_name: AudioWriterSoundfile
+  class_name: AudioWriterSoundfile
+  template_input: ElevenLabsVoiceGeneration
+  attributes:
+    save_dir: "artifacts"
+    extension: "wav"

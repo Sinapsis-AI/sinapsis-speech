@@ -5,8 +5,12 @@ import base64
 
 from sinapsis_core.data_containers.data_packet import TextPacket
 
+from sinapsis_elevenlabs.helpers.tags import Tags
 from sinapsis_elevenlabs.helpers.voice_utils import load_input_text
 from sinapsis_elevenlabs.templates.elevenlabs_base import ElevenLabsBase
+
+ElevenLabsVoiceGenerationUIProperties = ElevenLabsBase.UIProperties
+ElevenLabsVoiceGenerationUIProperties.tags.extend([Tags.VOICE_GENERATION, Tags.PROMPT])
 
 
 class ElevenLabsVoiceGeneration(ElevenLabsBase):
@@ -33,11 +37,13 @@ class ElevenLabsVoiceGeneration(ElevenLabsBase):
         voice_settings: null
         model: eleven_turbo_v2_5
         output_format: mp3_44100_128
-        output_folder: /sinapsis/cache/dir/elevenlabs/audios
+        output_folder: <WORKING_DIR>/elevenlabs/audios
         stream: false
         voice_description: An old British male with a raspy, deep voice. Professional,
           relaxed and assertive
     """
+
+    UIProperties = ElevenLabsVoiceGenerationUIProperties
 
     class AttributesBaseModel(ElevenLabsBase.AttributesBaseModel):
         """

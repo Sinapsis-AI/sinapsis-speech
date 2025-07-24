@@ -3,6 +3,7 @@ import os
 from typing import Any, Literal
 
 import nemo.collections.asr as nemo_asr
+import torch
 from sinapsis_core.data_containers.data_packet import (
     AudioPacket,
     DataContainer,
@@ -14,6 +15,8 @@ from sinapsis_core.template_base.base_models import (
     UIPropertiesMetadata,
 )
 from sinapsis_core.template_base.template import Template
+
+from sinapsis_parakeet_tdt.helpers.tags import Tags
 
 
 class ParakeetTDTInferenceAttributes(TemplateAttributes):
@@ -68,7 +71,18 @@ class ParakeetTDTInference(Template):
         refresh_cache: False
     """
 
-    UIProperties = UIPropertiesMetadata(category="Parakeet TDT", output_type=OutputTypes.TEXT)
+    UIProperties = UIPropertiesMetadata(
+        category="Parakeet TDT",
+        output_type=OutputTypes.TEXT,
+        tags=[
+            Tags.AUDIO,
+            Tags.SPEECH,
+            Tags.PARAKEET_TDT,
+            Tags.SPEECH_RECOGNITION,
+            Tags.SPEECH_TO_TEXT,
+            Tags.TRANSCRIPTION,
+        ],
+    )
 
     AttributesBaseModel = ParakeetTDTInferenceAttributes
 
@@ -268,3 +282,8 @@ class ParakeetTDTInference(Template):
         container.texts.extend(text_packets)
 
         return container
+
+    def reset_state(self, template_name: str | None = None) -> None:
+        if "cuda" in self.attributes.device:
+            torch.cuda.empty_cache()
+        super().reset_state(template_name)

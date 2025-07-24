@@ -4,7 +4,11 @@
 from elevenlabs import Voice
 from sinapsis_core.data_containers.data_packet import AudioPacket, DataContainer
 
+from sinapsis_elevenlabs.helpers.tags import Tags
 from sinapsis_elevenlabs.templates.elevenlabs_tts import ElevenLabsTTS
+
+ElevenLabsVoiceCloneUIProperties = ElevenLabsTTS.UIProperties
+ElevenLabsVoiceCloneUIProperties.tags.extend([Tags.VOICE_CLONING])
 
 
 class ElevenLabsVoiceClone(ElevenLabsTTS):
@@ -30,7 +34,7 @@ class ElevenLabsVoiceClone(ElevenLabsTTS):
         model: eleven_turbo_v2_5
         output_file_name: null
         output_format: mp3_44100_128
-        output_folder: ~/.cache/sinapsis/elevenlabs/audios
+        output_folder: <WORKING_DIR>/elevenlabs/audios
         stream: false
         voice: null
         voice_settings:
@@ -44,6 +48,8 @@ class ElevenLabsVoiceClone(ElevenLabsTTS):
         remove_background_noise: false
 
     """
+
+    UIProperties = ElevenLabsVoiceCloneUIProperties
 
     class AttributesBaseModel(ElevenLabsTTS.AttributesBaseModel):
         """Attributes specific to the ElevenLabsVoiceClone class.

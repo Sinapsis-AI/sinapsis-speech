@@ -1,14 +1,11 @@
 # -*- coding: utf-8 -*-
 """Base template for Zonos speech synthesis"""
 
-import os
-import uuid
 from typing import Literal, Set
 
 import torch
-import torchaudio
 from pydantic import Field
-from sinapsis_core.data_containers.data_packet import DataContainer, TextPacket
+from sinapsis_core.data_containers.data_packet import AudioPacket, DataContainer, TextPacket
 from sinapsis_core.template_base.base_models import (
     OutputTypes,
     TemplateAttributes,
@@ -16,10 +13,10 @@ from sinapsis_core.template_base.base_models import (
     UIPropertiesMetadata,
 )
 from sinapsis_core.template_base.template import Template
-from sinapsis_core.utils.env_var_keys import SINAPSIS_CACHE_DIR
 from zonos.model import Zonos
 from zonos.utils import DEFAULT_DEVICE as device
 
+from sinapsis_zonos.helpers.tags import Tags
 from sinapsis_zonos.helpers.zonos_keys import EmotionsConfig, SamplingParams, TTSKeys
 from sinapsis_zonos.helpers.zonos_tts_utils import (
     get_audio_prefix_codes,
@@ -38,7 +35,11 @@ class ZonosTTS(Template):
     and fine control over various speech attributes like pitch, speaking rate, and emotions.
     """
 
-    UIProperties = UIPropertiesMetadata(category="Zonos", output_type=OutputTypes.AUDIO)
+    UIProperties = UIPropertiesMetadata(
+        category="Zonos",
+        output_type=OutputTypes.AUDIO,
+        tags=[Tags.AUDIO, Tags.AUDIO_GENERATION, Tags.ZONOS, Tags.SPEECH, Tags.TEXT_TO_SPEECH, Tags.VOICE_CLONING],
+    )
 
     class AttributesBaseModel(TemplateAttributes):
         """
@@ -71,7 +72,7 @@ class ZonosTTS(Template):
         fmax: float = 22050.0
         language: str = TTSKeys.en_language
         model: Literal["Zyphra/Zonos-v0.1-transformer", "Zyphra/Zonos-v0.1-hybrid"] = "Zyphra/Zonos-v0.1-transformer"
-        output_folder: str = os.path.join(SINAPSIS_CACHE_DIR, "zonos", "audios")
+        # output_folder: str = os.path.join(SINAPSIS_CACHE_DIR, "zonos", "audios")
         pitch_std: float = 20.0
         prefix_audio: str | None = None
         randomized_seed: bool = True
@@ -85,7 +86,7 @@ class ZonosTTS(Template):
     def __init__(self, attributes: TemplateAttributeType) -> None:
         """Initializes the Zonos model with the provided attributes."""
         super().__init__(attributes)
-        os.makedirs(self.attributes.output_folder, exist_ok=True)
+        # os.makedirs(self.attributes.output_folder, exist_ok=True)
         self.device = device
         self.model = self._init_model()
         init_seed(self.attributes)
@@ -112,8 +113,9 @@ class ZonosTTS(Template):
             del self.model
             torch.cuda.empty_cache()
 
-    def reset_state(self) -> None:
+    def reset_state(self, template_name: str | None = None) -> None:
         """Reinitialize the model and random seed."""
+        _ = template_name
         self._del_model()
         self.model = self._init_model()
         init_seed(self.attributes)
@@ -154,10 +156,8 @@ class ZonosTTS(Template):
             output_audio (torch.Tensor): The generated audio output tensor.
             container (DataContainer): The container to store metadata.
         """
-        output_path = os.path.join(self.attributes.output_folder, f"{uuid.uuid4()}.{TTSKeys.wav}")
-        torchaudio.save(output_path, output_audio[0], self.model.autoencoder.sampling_rate)
-        self._set_generic_data(container, [output_path])
-        self.logger.debug(f"Audio saved to: {output_path}")
+        audio_np = output_audio[0].cpu().numpy()
+        container.audios.append(AudioPacket(content=audio_np, sample_rate=self.model.autoencoder.sampling_rate))
 
     def execute(self, container: DataContainer) -> DataContainer:
         """Processes the input data and generates a speech output."""

@@ -34,7 +34,13 @@ templates:
       - dnsmos_ovrl
       - vqscore_8
       - emotion
-    speaker_audio: artifacts/ref_audio.mp3
+    speaker_audio: artifacts/small.mp3
 
+- template_name: AudioWriterSoundfile
+  class_name: AudioWriterSoundfile
+  template_input: ZonosTTS
+  attributes:
+    save_dir: "zonos"
+    extension: "wav"
 
 

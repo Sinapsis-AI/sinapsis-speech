@@ -28,6 +28,7 @@ all = [
     "sinapsis-zonos[all]",
     "sinapsis-parakeet-tdt[all]",
     "sinapsis-orpheus-cpp[all]",
+
 ]
 gradio-app = [
     "sinapsis[webapp]>=0.2.3",
@@ -50,6 +51,7 @@ sinapsis-zonos = { workspace = true }
 sinapsis-speech = { workspace = true }
 sinapsis-parakeet-tdt = { workspace = true }
 sinapsis-orpheus-cpp = { workspace = true }
+sinapsis-chatterbox = { workspace = true }
 
 
 [[tool.uv.index]]

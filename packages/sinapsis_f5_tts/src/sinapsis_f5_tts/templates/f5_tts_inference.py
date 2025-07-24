@@ -6,6 +6,7 @@ from typing import Any, Literal
 
 import numpy as np
 import soundfile as sf
+import torch
 from pydantic import Field
 from pydantic.dataclasses import dataclass
 from sinapsis_core.data_containers.data_packet import (
@@ -14,6 +15,8 @@ from sinapsis_core.data_containers.data_packet import (
 )
 from sinapsis_core.template_base import Template
 from sinapsis_core.template_base.base_models import OutputTypes, TemplateAttributes, UIPropertiesMetadata
+
+from sinapsis_f5_tts.helpers.tags import Tags
 
 
 @dataclass
@@ -146,7 +149,11 @@ class F5TTSInference(Template):
     """
 
     AttributesBaseModel = F5TTSInferenceAttributes
-    UIProperties = UIPropertiesMetadata(category="F5TTS", output_type=OutputTypes.AUDIO)
+    UIProperties = UIPropertiesMetadata(
+        category="F5TTS",
+        output_type=OutputTypes.AUDIO,
+        tags=[Tags.AUDIO, Tags.AUDIO_GENERATION, Tags.F5TTS, Tags.SPEECH, Tags.TEXT_TO_SPEECH],
+    )
 
     def _add_attribute_to_command(self, cli_command: list[str], field_name: str, field: Any) -> None:
         """
@@ -357,3 +364,8 @@ class F5TTSInference(Template):
                 )
 
         return container
+
+    def reset_state(self, template_name: str | None = None) -> None:
+        if "cuda" in self.attributes.device:
+            torch.cuda.empty_cache()
+        super().reset_state(template_name)

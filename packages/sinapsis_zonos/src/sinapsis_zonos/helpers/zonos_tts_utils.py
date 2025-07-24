@@ -3,7 +3,7 @@ from typing import Set
 
 import torch
 import torchaudio
-from sinapsis_core.template_base.template import TemplateAttributeType
+from sinapsis_core.template_base.base_models import TemplateAttributeType
 from sinapsis_core.utils.logging_utils import sinapsis_logger
 from zonos.conditioning import make_cond_dict, supported_language_codes
 from zonos.model import Zonos

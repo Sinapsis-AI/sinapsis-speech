@@ -18,10 +18,16 @@ templates:
   class_name: AudioReaderToBytes
   template_input: TextInput
   attributes:
-    audio_file_path: artifacts/town.mp3
+    audio_file_path: artifacts/small.mp3
 
 - template_name: ElevenLabsVoiceClone
   class_name: ElevenLabsVoiceClone
   template_input: AudioReaderToBytes
   attributes:
     name: "Clone Voice"
+- template_name: AudioWriterSoundfile
+  class_name: AudioWriterSoundfile
+  template_input: ElevenLabsVoiceClone
+  attributes:
+    save_dir: "artifacts"
+    extension: "wav"
