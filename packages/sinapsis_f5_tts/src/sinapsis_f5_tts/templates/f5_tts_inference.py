@@ -366,6 +366,6 @@ class F5TTSInference(Template):
         return container
 
     def reset_state(self, template_name: str | None = None) -> None:
-        if "cuda" in self.attributes.device:
+        if torch.cuda.is_available():
             torch.cuda.empty_cache()
         super().reset_state(template_name)

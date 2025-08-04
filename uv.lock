@@ -5566,7 +5566,7 @@ requires-dist = [
 
 [[package]]
 name = "sinapsis-f5-tts"
-version = "0.1.6"
+version = "0.1.7"
 source = { editable = "packages/sinapsis_f5_tts" }
 dependencies = [
     { name = "f5-tts" },
