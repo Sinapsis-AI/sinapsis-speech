@@ -1,6 +1,6 @@
 [project]
 name = "sinapsis-elevenlabs"
-version = "0.2.1"
+version = "0.2.2"
 description = "Generate realistic voices from text, other speeches, and more using the Elevenlabs library."
 readme = "README.md"
 authors = [
