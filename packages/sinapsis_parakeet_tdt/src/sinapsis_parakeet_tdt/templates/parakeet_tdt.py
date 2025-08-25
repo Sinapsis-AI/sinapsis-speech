@@ -15,6 +15,7 @@ from sinapsis_core.template_base.base_models import (
     UIPropertiesMetadata,
 )
 from sinapsis_core.template_base.template import Template
+from sinapsis_core.utils.env_var_keys import SINAPSIS_CACHE_DIR
 
 from sinapsis_parakeet_tdt.helpers.tags import Tags
 
@@ -36,6 +37,7 @@ class ParakeetTDTInferenceAttributes(TemplateAttributes):
 
     model_name: str = "nvidia/parakeet-tdt-0.6b-v2"
     audio_paths: list[str] | None = None
+    root_dir: str | None = None
     enable_timestamps: bool = False
     timestamp_level: Literal["char", "word", "segment"] = "word"
     device: Literal["cpu", "cuda"] = "cuda"
@@ -88,6 +90,7 @@ class ParakeetTDTInference(Template):
 
     def __init__(self, attributes: TemplateAttributes) -> None:
         super().__init__(attributes)
+        self.attributes.root_dir = self.attributes.root_dir or SINAPSIS_CACHE_DIR
         self._load_model()
 
     def _load_model(self) -> None:
@@ -131,9 +134,10 @@ class ParakeetTDTInference(Template):
         """
         sources = []
         for path in paths:
-            if not os.path.exists(path):
-                self.logger.warning(f"Audio file not found: {path}")
-            sources.append(path)
+            full_path = os.path.join(self.attributes.root_dir, path)
+            if not os.path.exists(full_path):
+                self.logger.warning(f"Audio file not found: {full_path}")
+            sources.append(full_path)
         return sources
 
     def get_audio_sources(self, container: DataContainer) -> list[str]:
@@ -156,7 +160,6 @@ class ParakeetTDTInference(Template):
 
         if not sources and self.attributes.audio_paths:
             sources = self.get_sources_from_paths(self.attributes.audio_paths)
-
         return sources
 
     @staticmethod
@@ -220,6 +223,7 @@ class ParakeetTDTInference(Template):
         Returns:
             list[Any]: List of transcription results from the ASR model.
         """
+
         return self.model.transcribe(
             sources,
             timestamps=self.attributes.enable_timestamps,
