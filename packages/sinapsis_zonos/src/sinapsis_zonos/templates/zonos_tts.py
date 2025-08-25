@@ -109,16 +109,16 @@ class ZonosTTS(Template):
 
         Frees GPU memory by deleting the model and explicitly emptying the CUDA cache.
         """
-        if self.model:
-            del self.model
-            torch.cuda.empty_cache()
+
+        torch.cuda.empty_cache()
+        torch.cuda.ipc_collect()
 
     def reset_state(self, template_name: str | None = None) -> None:
         """Reinitialize the model and random seed."""
         _ = template_name
+        super().reset_state(template_name)
         self._del_model()
-        self.model = self._init_model()
-        init_seed(self.attributes)
+
         self.logger.debug(f"Model {self.attributes.model} reset\nSeed: {self.attributes.seed}")
 
     def generate_speech(self, input_data: list[TextPacket]) -> torch.Tensor:
@@ -157,7 +157,9 @@ class ZonosTTS(Template):
             container (DataContainer): The container to store metadata.
         """
         audio_np = output_audio[0].cpu().numpy()
-        container.audios.append(AudioPacket(content=audio_np, sample_rate=self.model.autoencoder.sampling_rate))
+        container.audios.append(
+            AudioPacket(content=audio_np.flatten(), sample_rate=self.model.autoencoder.sampling_rate)
+        )
 
     def execute(self, container: DataContainer) -> DataContainer:
         """Processes the input data and generates a speech output."""

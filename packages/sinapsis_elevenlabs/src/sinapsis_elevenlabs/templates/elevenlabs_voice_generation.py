@@ -37,7 +37,6 @@ class ElevenLabsVoiceGeneration(ElevenLabsBase):
         voice_settings: null
         model: eleven_turbo_v2_5
         output_format: mp3_44100_128
-        output_folder: <WORKING_DIR>/elevenlabs/audios
         stream: false
         voice_description: An old British male with a raspy, deep voice. Professional,
           relaxed and assertive

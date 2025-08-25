@@ -33,9 +33,7 @@ class ElevenLabsSTS(ElevenLabsBase):
       attributes:
         api_key: null
         model: eleven_multilingual_sts_v2
-        output_file_name: null
         output_format: mp3_44100_128
-        output_folder: <WORKING_DIR>/elevenlabs/audios
         stream: false
         voice: null
         voice_settings:

@@ -40,7 +40,6 @@ class ElevenLabsTTS(ElevenLabsBase):
         voice_settings: null
         model: eleven_turbo_v2_5
         output_format: mp3_44100_128
-        output_folder: <WORKING_DIR>/elevenlabs/audios
         stream: false
 
     """

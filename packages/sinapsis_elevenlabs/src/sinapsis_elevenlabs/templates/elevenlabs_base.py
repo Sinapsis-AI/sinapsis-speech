@@ -2,7 +2,6 @@
 """Base template for ElevenLabs speech synthesis"""
 
 import abc
-import os
 from typing import Generator, Iterable, Iterator, Literal
 
 import numpy as np
@@ -18,7 +17,6 @@ from sinapsis_core.template_base.base_models import (
     UIPropertiesMetadata,
 )
 from sinapsis_core.template_base.template import Template
-from sinapsis_core.utils.env_var_keys import WORKING_DIR
 from sinapsis_generic_data_tools.helpers.audio_encoder import audio_bytes_to_numpy
 
 from sinapsis_elevenlabs.helpers.env_var_keys import ELEVENLABS_API_KEY
@@ -47,8 +45,7 @@ class ElevenLabsBase(Template, abc.ABC):
         Args:
             api_key (str): The API used key to authenticate with ElevenLabs' API.
             model (Literal): The model identifier to use for speech synthesis.
-            output_file_name (str | None): Optional name for saved audio file.
-                If not provided a random UUI will be used as file name. Defaults to None.
+
             output_format (OutputFormat): The output audio format and quality. Options include:
                 ["mp3_22050_32", "mp3_44100_32", "mp3_44100_64", "mp3_44100_96", "mp3_44100_128",
                 "mp3_44100_192", "pcm_16000", "pcm_22050", "pcm_24000", "pcm_44100", "ulaw_8000"]
@@ -71,9 +68,7 @@ class ElevenLabsBase(Template, abc.ABC):
             "eleven_english_sts_v2",
             "eleven_multilingual_sts_v2",
         ] = "eleven_turbo_v2_5"
-        output_file_name: str | None = None
         output_format: OutputFormat = "mp3_44100_128"
-        output_folder: str = os.path.join(WORKING_DIR, "elevenlabs", "audios")
         stream: bool = False
         voice: str | Voice | None = None
         voice_settings: VoiceSettings = Field(default_factory=dict)  # type: ignore[arg-type]

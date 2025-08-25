@@ -14,7 +14,13 @@ from sinapsis_core.data_containers.data_packet import (
     DataContainer,
 )
 from sinapsis_core.template_base import Template
-from sinapsis_core.template_base.base_models import OutputTypes, TemplateAttributes, UIPropertiesMetadata
+from sinapsis_core.template_base.base_models import (
+    OutputTypes,
+    TemplateAttributes,
+    TemplateAttributeType,
+    UIPropertiesMetadata,
+)
+from sinapsis_core.utils.env_var_keys import SINAPSIS_CACHE_DIR
 
 from sinapsis_f5_tts.helpers.tags import Tags
 
@@ -107,6 +113,8 @@ class F5TTSInferenceAttributes(TemplateAttributes):
 
     device: str | None = Field(default=None, json_schema_extra={F5CliKeys.cli_param: "--device"})
 
+    root_dir: str | None = None
+
 
 class F5TTSInference(Template):
     """Template for performing text-to-speech synthesis using the F5TTS model.
@@ -154,6 +162,11 @@ class F5TTSInference(Template):
         output_type=OutputTypes.AUDIO,
         tags=[Tags.AUDIO, Tags.AUDIO_GENERATION, Tags.F5TTS, Tags.SPEECH, Tags.TEXT_TO_SPEECH],
     )
+
+    def __init__(self, attributes: TemplateAttributeType) -> None:
+        super().__init__(attributes)
+        self.attributes.root_dir = self.attributes.root_dir or SINAPSIS_CACHE_DIR
+        self.attributes.ref_audio = os.path.join(self.attributes.root_dir, self.attributes.ref_audio)
 
     def _add_attribute_to_command(self, cli_command: list[str], field_name: str, field: Any) -> None:
         """
