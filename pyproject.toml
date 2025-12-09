@@ -1,6 +1,6 @@
 [project]
 name = "sinapsis-speech"
-version = "0.4.4"
+version = "0.4.6"
 description = "Generate speech using various libraries."
 authors = [
     {name = "SinapsisAI", email = "dev@sinapsis.tech"},
