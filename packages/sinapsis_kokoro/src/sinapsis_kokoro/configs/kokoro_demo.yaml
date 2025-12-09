@@ -1,7 +1,8 @@
 agent:
   name: kokoro_tts_agent
   description: "Agent that generates speech from text using the Kokoro-TTS model."
-
+  attributes:
+    queue_name: KokoroTTS
 templates:
 - template_name: InputTemplate
   class_name: InputTemplate
@@ -14,9 +15,3 @@ templates:
     speed: 1
     voice: af_heart
 
-- template_name: AudioWriterSoundfile
-  class_name: AudioWriterSoundfile
-  template_input: KokoroTTS
-  attributes:
-    save_dir: "webapp/audios"
-    extension: "wav"
