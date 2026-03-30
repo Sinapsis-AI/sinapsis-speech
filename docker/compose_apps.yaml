@@ -84,3 +84,17 @@ services:
       - "../webapps/:/app/webapps"
       - "../packages/sinapsis_orpheus_cpp/src/sinapsis_orpheus_cpp/configs/:/app/packages/sinapsis_orpheus_cpp/src/sinapsis_orpheus_cpp/configs/"
     command: python3 webapps/packet_tts_apps/orpheus_tts_app.py
+  sinapsis-csm:
+    extends:
+      service: sinapsis-speech-main
+      file: compose.yaml
+    container_name: sinapsis-csm
+    environment:
+      AGENT_CONFIG_PATH: ${AGENT_CONFIG_PATH:-packages/sinapsis_csm/src/sinapsis_csm/configs/csm_app.yaml}
+      PYTHONPATH: /app/webapps:/lib/python3.10/:/app/.venv/lib/python3.10/site-packages:/lib/python3.10/
+      HF_TOKEN: ${HF_TOKEN}
+    tty: true
+    volumes:
+      - "../webapps/:/app/webapps"
+      - "../packages/sinapsis_csm/src/sinapsis_csm/configs/:/app/packages/sinapsis_csm/src/sinapsis_csm/configs/"
+    command: python3 webapps/packet_tts_apps/csm_tts_app.py

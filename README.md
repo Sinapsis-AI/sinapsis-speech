@@ -35,6 +35,7 @@ This repo includes packages for performing speech synthesis using different tool
 * <code>sinapsis-zonos</code>
 * <code>sinapsis-orpheus-cpp</code>
 * <code>sinapsis-parakeet</code>
+* <code>sinapsis-csm</code>
 
 Install using your preferred package manager. We strongly recommend using <code>uv</code>. To install <code>uv</code>, refer to the [official documentation](https://docs.astral.sh/uv/getting-started/installation/#installation-methods).
 
@@ -150,6 +151,17 @@ For specific instructions and further details, see the [README.md](https://githu
 
 </details>
 
+<details>
+<summary id="parakeet-tdt"><strong><span style="font-size: 1.4em;"> Sinapsis Parakeet-TDT</span></strong></summary>
+
+This package provides a template for seamlessly integrating, configuring, and running **speech-to-text (STT)** functionalities powered by [SesameAILabs CSM](https://github.com/SesameAILabs/csm/tree/main?tab=readme-ov-file).
+
+- **CSMTTS**: Converts text into speech using the CSM model. This template processes text packets from the input container and adds the resulting audio packets to the container.
+
+For specific instructions and further details, see the [README.md](https://github.com/Sinapsis-AI/sinapsis-speech/blob/main/packages/sinapsis_csm/README.md).
+
+</details>
+
 <h2 id="webapp">🌐 Webapps</h2>
 The webapps included in this project showcase the modularity of the templates, in this case for speech generation tasks.
 
@@ -173,6 +185,9 @@ cd sinapsis-speech
 
 > [!IMPORTANT]
 > F5-TTS requires a reference audio file for voice cloning. Make sure you have a reference audio file in the artifacts directory.
+
+> [!IMPORTANT]
+> CSM requires an HF_TOKEN to run any inference. See the [official instructions](https://huggingface.co/docs/hub/security-tokens) and set it using <code>export HF_TOKEN="token-provided-by-hf"</code>
 
 > [!NOTE]
 > Agent configuration can be changed through the `AGENT_CONFIG_PATH` env var. You can check the available configurations in each package configs folder.
@@ -220,6 +235,11 @@ docker compose -f docker/compose_apps.yaml up -d sinapsis-orpheus-tts
 docker compose -f docker/compose_apps.yaml up -d sinapsis-parakeet
 ```
 
+- For CSM:
+```bash
+docker compose -f docker/compose_apps.yaml up -d sinapsis-csm
+```
+
 3. **Check the logs**
 
 - For ElevenLabs:
@@ -248,6 +268,11 @@ docker logs -f sinapsis-orpheus-tts
 - For Parakeet:
 ```bash
 docker logs -f sinapsis-parakeet
+```
+
+- For CSM:
+```bash
+docker logs -f sinapsis-csm
 ```
 
 4. **The logs will display the URL to access the webapp, e.g.,:**:
@@ -309,6 +334,12 @@ uv run webapps/packet_tts_apps/kokoro_tts_app.py
 ```bash
 uv run webapps/generic_tts_apps/zonos_tts_app.py
 ```
+
+- For CSM:
+```bash
+uv run webapps/generic_tts_apps/csm_tts_app.py
+```
+
 4. **The terminal will display the URL to access the webapp (e.g.)**:
 ```bash
 Running on local URL:  http://127.0.0.1:7860

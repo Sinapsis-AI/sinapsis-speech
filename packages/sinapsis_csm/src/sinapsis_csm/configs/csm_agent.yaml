@@ -1,0 +1,31 @@
+agent:
+  name: csm_tts_agent
+  description: Agent that synthesizes speech from text using the CSM model.
+
+templates:
+  - template_name: InputTemplate
+    class_name: InputTemplate
+    attributes: {}
+
+  - template_name: TextInput
+    class_name: TextInput
+    template_input: InputTemplate
+    attributes:
+      text: "Welcome to sinapsis. This is a test with the CSM text to speech package."
+
+  - template_name: CSMTTS
+    class_name: CSMTTS
+    template_input: TextInput
+    attributes:
+      speaker_id: 0
+      max_audio_length_ms: 10000
+      device: cpu
+      context: null
+      sample_rate_hz: 24000
+
+  - template_name: AudioWriterSoundfile
+    class_name: AudioWriterSoundfile
+    template_input: CSMTTS
+    attributes:
+      save_dir: csm_tts
+      extension: wav
