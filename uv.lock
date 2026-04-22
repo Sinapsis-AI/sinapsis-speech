@@ -5453,7 +5453,7 @@ dev = [
 
 [[package]]
 name = "sinapsis-zonos"
-version = "0.1.2"
+version = "0.1.12"
 source = { editable = "packages/sinapsis_zonos" }
 dependencies = [
     { name = "sinapsis" },
