@@ -10,7 +10,8 @@ from sinapsis_elevenlabs.helpers.voice_utils import load_input_text
 from sinapsis_elevenlabs.templates.elevenlabs_base import ElevenLabsBase
 
 ElevenLabsVoiceGenerationUIProperties = ElevenLabsBase.UIProperties
-ElevenLabsVoiceGenerationUIProperties.tags.extend([Tags.VOICE_GENERATION, Tags.PROMPT])
+if ElevenLabsVoiceGenerationUIProperties.tags is not None:
+    ElevenLabsVoiceGenerationUIProperties.tags.extend([Tags.VOICE_GENERATION, Tags.PROMPT])
 
 
 class ElevenLabsVoiceGeneration(ElevenLabsBase):
@@ -53,6 +54,8 @@ class ElevenLabsVoiceGeneration(ElevenLabsBase):
         """
 
         voice_description: str
+
+    attributes: AttributesBaseModel
 
     def synthesize_speech(self, input_data: list[TextPacket]) -> list[bytes] | None:
         """

@@ -44,6 +44,8 @@ class ElevenLabsVoiceCloneApp(TTSAppAudioFromGeneric):
                 texts=[TextPacket(content=text_to_convert)],
             )
             output_container = self.agent(container)
+            if output_container is None or not isinstance(output_container, DataContainer):
+                return None, "#### Model not ready! Please wait..."
             audio_path = self._postprocess_output(output_container, self.generic_key_or_base_path)
 
             if audio_path:

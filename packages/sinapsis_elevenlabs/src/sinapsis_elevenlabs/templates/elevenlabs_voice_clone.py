@@ -8,7 +8,8 @@ from sinapsis_elevenlabs.helpers.tags import Tags
 from sinapsis_elevenlabs.templates.elevenlabs_tts import ElevenLabsTTS
 
 ElevenLabsVoiceCloneUIProperties = ElevenLabsTTS.UIProperties
-ElevenLabsVoiceCloneUIProperties.tags.extend([Tags.VOICE_CLONING])
+if ElevenLabsVoiceCloneUIProperties.tags is not None:
+    ElevenLabsVoiceCloneUIProperties.tags.extend([Tags.VOICE_CLONING])
 
 
 class ElevenLabsVoiceClone(ElevenLabsTTS):
@@ -61,6 +62,8 @@ class ElevenLabsVoiceClone(ElevenLabsTTS):
         name: str | None = None
         description: str | None = None
         remove_background_noise: bool = False
+
+    attributes: AttributesBaseModel
 
     def clone_voice(self, input_data: list[AudioPacket]) -> Voice:
         """Clones a voice using the provided audio files.

@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-from typing import Any
-
 import gradio as gr
 from helpers import add_logos_and_title
 from sinapsis.webapp.agent_gradio_helper import css_header
@@ -19,12 +17,12 @@ GENERIC_KEY = "ElevenLabsVoiceGeneration"
 
 
 class ElevenLabsTTSAppWithVoiceDescription(TTSAppAudioFromGeneric):
-    def text_to_speech(
+    def text_to_speech_convert(
         self,
         initialized: bool,
         voice_description: str,
         text_to_convert: str,
-    ) -> tuple[Any | None, str | None]:
+    ) -> tuple[gr.Audio | None, str | None]:
         if initialized:
             if len(voice_description) < 20 or len(text_to_convert) < 100:
                 gr.Warning(
@@ -34,6 +32,8 @@ class ElevenLabsTTSAppWithVoiceDescription(TTSAppAudioFromGeneric):
             self.agent.update_template_attribute(f"{GENERIC_KEY}", "voice_description", voice_description)
             container = DataContainer(texts=[TextPacket(content=text_to_convert)])
             output_container = self.agent(container)
+            if output_container is None or not isinstance(output_container, DataContainer):
+                return None, "#### Model not ready! Please wait..."
             audio_path = self._postprocess_output(output_container, self.generic_key_or_base_path)
             if audio_path:
                 return gr.Audio(audio_path, visible=True), None
@@ -64,7 +64,7 @@ class ElevenLabsTTSAppWithVoiceDescription(TTSAppAudioFromGeneric):
         audio_generated = gr.Audio(label="Audio generated:", visible=False)
 
         text_to_convert.submit(
-            self.text_to_speech,
+            self.text_to_speech_convert,
             inputs=[initialized_state, voice_description, text_to_convert],
             outputs=[audio_generated, status_msg],
         )

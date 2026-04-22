@@ -162,6 +162,7 @@ class F5TTSInference(Template):
         output_type=OutputTypes.AUDIO,
         tags=[Tags.AUDIO, Tags.AUDIO_GENERATION, Tags.F5TTS, Tags.SPEECH, Tags.TEXT_TO_SPEECH],
     )
+    attributes: F5TTSInferenceAttributes
 
     def __init__(self, attributes: TemplateAttributeType) -> None:
         super().__init__(attributes)

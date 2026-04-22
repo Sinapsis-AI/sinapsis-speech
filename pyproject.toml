@@ -1,6 +1,6 @@
 [project]
 name = "sinapsis-speech"
-version = "0.5.0"
+version = "0.5.1"
 description = "Generate speech using various libraries."
 authors = [
     {name = "SinapsisAI", email = "dev@sinapsis.tech"},
@@ -16,6 +16,7 @@ dependencies = [
 dev = [
     "ruff>=0.8.3",
     "pre-commit>=4.0.1",
+    "ty>=0.0.31",
 ]
 
 [project.optional-dependencies]
@@ -26,8 +27,8 @@ all = [
     "sinapsis-kokoro[all]",
     "sinapsis-speech[gradio-app]",
     "sinapsis-zonos[all]",
-    "sinapsis-parakeet-tdt[all]",
     "sinapsis-orpheus-cpp[all]",
+    "sinapsis-csm[all]",
 
 ]
 gradio-app = [
@@ -44,15 +45,13 @@ packages = { find = { where = ["packages"] } }
 
 
 [tool.uv.sources]
-sinapsis-cosy-voice = { workspace = true }
 sinapsis-elevenlabs = { workspace = true }
 sinapsis-f5-tts = { workspace = true }
 sinapsis-kokoro = { workspace = true }
 sinapsis-zonos = { workspace = true }
 sinapsis-speech = { workspace = true }
-sinapsis-parakeet-tdt = { workspace = true }
 sinapsis-orpheus-cpp = { workspace = true }
-#sinapsis-csm = { workspace = true }
+sinapsis-csm = { workspace = true }
 
 
 [[tool.uv.index]]

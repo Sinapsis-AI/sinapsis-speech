@@ -136,6 +136,7 @@ class OrpheusTTS(Template):
         output_type=OutputTypes.AUDIO,
         tags=[Tags.AUDIO, Tags.AUDIO_GENERATION, Tags.ORPHEUS_CPP, Tags.SPEECH, Tags.TEXT_TO_SPEECH],
     )
+    attributes: OrpheusTTSAttributes
 
     def __init__(self, attributes: TemplateAttributeType) -> None:
         super().__init__(attributes)
@@ -201,7 +202,7 @@ class OrpheusTTS(Template):
                     f"reduce n_gpu_layers if using GPU. "
                 )
                 self.logger.error(error_msg)
-                self._engine._llm = None
+                setattr(self._engine, "_llm", None)
                 self._llm_available = False
             else:
                 raise
@@ -219,7 +220,7 @@ class OrpheusTTS(Template):
         if self._llm_available:
             self._engine._snac_session = setup_snac_session(self.attributes.cache_dir)
         else:
-            self._engine._snac_session = None
+            setattr(self._engine, "_snac_session", None)
 
     def _create_tts_options(self) -> TTSOptions:
         """

@@ -7,7 +7,8 @@ from sinapsis_core.utils.env_var_keys import (
     SINAPSIS_CACHE_DIR,
 )
 
-CONFIG_PATH = AGENT_CONFIG_PATH or "packages/sinapsis_f5_tts/src/sinapsis_f5_tts/configs/f5_tts_app.yaml"
+# CONFIG_PATH = AGENT_CONFIG_PATH or "packages/sinapsis_f5_tts/src/sinapsis_f5_tts/configs/f5_tts_app.yaml"
+CONFIG_PATH = AGENT_CONFIG_PATH or "packages/sinapsis_elevenlabs/src/sinapsis_elevenlabs/configs/elevenlabs_tts.yaml"
 BASE_AUDIO_PATH = f"{SINAPSIS_CACHE_DIR}/webapp/audios"
 
 

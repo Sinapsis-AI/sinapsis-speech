@@ -2,7 +2,7 @@
 """Base template for ElevenLabs speech synthesis"""
 
 import abc
-from typing import Generator, Iterable, Iterator, Literal
+from typing import Generator, Iterable, Iterator, Literal, cast
 
 import numpy as np
 from elevenlabs import Voice, VoiceSettings
@@ -73,6 +73,8 @@ class ElevenLabsBase(Template, abc.ABC):
         voice: str | Voice | None = None
         voice_settings: VoiceSettings = Field(default_factory=dict)  # type: ignore[arg-type]
 
+    attributes: AttributesBaseModel
+
     UIProperties = UIPropertiesMetadata(
         category="Elevenlabs",
         output_type=OutputTypes.AUDIO,
@@ -95,7 +97,7 @@ class ElevenLabsBase(Template, abc.ABC):
         self.client = self.init_elevenlabs_client()
 
     @abc.abstractmethod
-    def synthesize_speech(self, input_data: list[Packet]) -> RESPONSE_TYPE:
+    def synthesize_speech(self, input_data: list) -> RESPONSE_TYPE:
         """Abstract method for ElevenLabs speech synthesis."""
 
     def _generate_audio_stream(self, response: Iterable | bytes) -> bytes:
@@ -103,7 +105,7 @@ class ElevenLabsBase(Template, abc.ABC):
 
         try:
             if isinstance(response, Iterator):
-                audio_stream = b"".join(chunk for chunk in response)
+                audio_stream = b"".join(list(response))
             elif isinstance(response, bytes):
                 audio_stream = response
 
@@ -134,7 +136,7 @@ class ElevenLabsBase(Template, abc.ABC):
             return None
 
         if isinstance(responses, Iterator):
-            responses = [responses]
+            responses = cast(list[Iterator], [responses])
         elif isinstance(responses, Generator):
             responses = list(responses)
         audio_outputs = [self._process_audio_output(response) for response in responses]

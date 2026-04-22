@@ -66,6 +66,8 @@ class KokoroTTS(Template):
         split_pattern: str = r"\n+"
         voice: kokoro_voices = KokoroKeys.default_voice
 
+    attributes: AttributesBaseModel
+
     def __init__(self, attributes: TemplateAttributeType) -> None:
         """Initializes the Kokoro TTS pipeline with the provided attributes."""
         super().__init__(attributes)
@@ -83,7 +85,7 @@ class KokoroTTS(Template):
 
     def _create_audio_packet(
         self,
-        audio_data: torch.tensor,
+        audio_data: torch.Tensor,
         sample_rate: int,
         container: DataContainer,
     ) -> None:

@@ -14,7 +14,8 @@ from sinapsis_elevenlabs.helpers.voice_utils import (
 from sinapsis_elevenlabs.templates.elevenlabs_base import ElevenLabsBase
 
 ElevenLabsTTSUIProperties = ElevenLabsBase.UIProperties
-ElevenLabsTTSUIProperties.tags.extend([Tags.TEXT_TO_SPEECH])
+if ElevenLabsTTSUIProperties.tags is not None:
+    ElevenLabsTTSUIProperties.tags.extend([Tags.TEXT_TO_SPEECH])
 
 
 class ElevenLabsTTS(ElevenLabsBase):
@@ -58,6 +59,8 @@ class ElevenLabsTTS(ElevenLabsBase):
             "eleven_monolingual_v1",
             "eleven_multilingual_v1",
         ] = "eleven_turbo_v2_5"
+
+    attributes: AttributesBaseModel
 
     def synthesize_speech(self, input_data: list[TextPacket]) -> Iterator[bytes]:
         """

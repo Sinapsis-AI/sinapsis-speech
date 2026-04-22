@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from typing import Literal
+from typing import Any, Literal
 
 import torch
 from csm.generator import Generator
@@ -17,11 +17,11 @@ class CSMGenerator:
         self.sample_rate: int = sample_rate
         self.model: Model = Model.from_pretrained("sesame/csm-1b")
         self.model.to(device=device)
-        self.model.sample_rate = sample_rate
+        setattr(self.model, "sample_rate", sample_rate)
         self.generator = Generator(self.model)
 
     def generate(
-        self, text: str, speaker: int = 0, context: list[str] | None = None, max_audio_length_ms: int = 10000
+        self, text: str, speaker: int = 0, context: list[Any] | None = None, max_audio_length_ms: int = 10000
     ) -> torch.Tensor:
         if context is None:
             context = []

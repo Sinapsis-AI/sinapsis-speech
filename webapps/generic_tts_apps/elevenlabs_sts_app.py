@@ -32,7 +32,9 @@ class ElevenLabsSTSApp(TTSAppAudioFromGeneric):
             with open(audio_file, "rb") as f:
                 audio_bytes = f.read()
             container = DataContainer(audios=[AudioPacket(content=audio_bytes)])
-            output_container = self.agent(container)
+            output_container = DataContainer, self.agent(container)
+            if output_container is None or not isinstance(output_container, DataContainer):
+                return None, "#### Model not ready! Please wait..."
             audio_path = self._postprocess_output(output_container, self.generic_key_or_base_path)
             if audio_path:
                 return gr.Audio(audio_path, visible=True), None

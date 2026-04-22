@@ -83,6 +83,8 @@ class ZonosTTS(Template):
         unconditional_keys: Set[str] = Field(default={TTSKeys.vqscore_8, TTSKeys.dnsmos_ovrl})
         vq_score: float = 0.7
 
+    attributes: AttributesBaseModel
+
     def __init__(self, attributes: TemplateAttributeType) -> None:
         """Initializes the Zonos model with the provided attributes."""
         super().__init__(attributes)
@@ -99,7 +101,7 @@ class ZonosTTS(Template):
         Returns:
             Zonos: The loaded and prepared Zonos model, set to evaluation mode with gradients disabled.
         """
-        model = Zonos.from_pretrained(self.attributes.model, device=self.device)
+        model = Zonos.from_pretrained(self.attributes.model, device=str(self.device))
         model.requires_grad_(False).eval()
         return model
 

@@ -10,7 +10,8 @@ from sinapsis_elevenlabs.helpers.voice_utils import create_voice_settings, get_v
 from sinapsis_elevenlabs.templates.elevenlabs_base import ElevenLabsBase
 
 ElevenLabsSTSUIProperties = ElevenLabsBase.UIProperties
-ElevenLabsSTSUIProperties.tags.extend([Tags.SPEECH_TO_SPEECH, Tags.VOICE_CONVERSION])
+if ElevenLabsSTSUIProperties.tags is not None:
+    ElevenLabsSTSUIProperties.tags.extend([Tags.SPEECH_TO_SPEECH, Tags.VOICE_CONVERSION])
 
 
 class ElevenLabsSTS(ElevenLabsBase):
@@ -59,6 +60,8 @@ class ElevenLabsSTS(ElevenLabsBase):
 
         model: Literal["eleven_english_sts_v2", "eleven_multilingual_sts_v2"] = "eleven_multilingual_sts_v2"
         streaming_latency: int | None = None
+
+    attributes: AttributesBaseModel
 
     def synthesize_speech(self, input_data: list[AudioPacket]) -> Iterator[bytes]:
         """Sends an audio input to the ElevenLabs API for speech-to-speech synthesis.

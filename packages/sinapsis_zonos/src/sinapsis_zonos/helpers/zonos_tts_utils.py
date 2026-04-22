@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
-from typing import Set
+from typing import Any, Set
 
 import torch
 import torchaudio
-from sinapsis_core.template_base.base_models import TemplateAttributeType
 from sinapsis_core.utils.logging_utils import sinapsis_logger
 from zonos.conditioning import make_cond_dict, supported_language_codes
 from zonos.model import Zonos
@@ -29,14 +28,12 @@ def get_audio_prefix_codes(prefix_path: str | None, model: Zonos) -> torch.Tenso
     return None
 
 
-def get_conditioning(
-    attributes: TemplateAttributeType, model: Zonos, input_text: str, device: torch.device
-) -> torch.Tensor:
+def get_conditioning(attributes: Any, model: Zonos, input_text: str, device: torch.device) -> torch.Tensor:
     """
     Generates conditioning tensor for the input text, combining it with speaker embeddings and emotions.
 
     Args:
-        attributes (TemplateAttributeType): attributes with configuration for the conditioning dictionary
+        attributes (TemplateAttributes): attributes with configuration for the conditioning dictionary
         of the model.
         model (Zonos): Model to be used during inference, where the setup is modified.
         input_text (str): The text to be converted to speech.
@@ -55,8 +52,8 @@ def get_conditioning(
         text=input_text,
         language=attributes.language,
         speaker=speaker_embedding,
-        emotion=emotion_data,
-        vqscore_8=vq_data,
+        emotion=emotion_data.cpu().numpy().tolist(),
+        vqscore_8=vq_data.cpu().numpy().tolist(),
         fmax=attributes.fmax,
         pitch_std=attributes.pitch_std,
         speaking_rate=attributes.speaking_rate,
@@ -68,7 +65,7 @@ def get_conditioning(
     return model.prepare_conditioning(conditioning_dict)
 
 
-def get_emotion_tensor(attributes: TemplateAttributeType, device: torch.device) -> torch.Tensor:
+def get_emotion_tensor(attributes: Any, device: torch.device) -> torch.Tensor:
     """
     Extracts or constructs an emotion tensor from the given attributes.
 
@@ -77,7 +74,7 @@ def get_emotion_tensor(attributes: TemplateAttributeType, device: torch.device) 
     added to `attributes.unconditional_keys` (if not already included) to indicate unconditional conditioning.
 
     Args:
-        attributes (TemplateAttributeType): Attributes for Zonos TTS model configuration.
+        attributes (TemplateAttributes): Attributes for Zonos TTS model configuration.
         device (torch.device): The device on which the tensor should be created.
 
     Returns:
@@ -131,14 +128,14 @@ def get_speaker_embedding(
     return None
 
 
-def init_seed(attributes: TemplateAttributeType) -> None:
+def init_seed(attributes: Any) -> None:
     """Initializes the seed for reproducible results."""
     if attributes.randomized_seed:
         attributes.seed = torch.randint(0, 2**32 - 1, (1,)).item()
     torch.manual_seed(attributes.seed)
 
 
-def validate_language(attributes: TemplateAttributeType) -> None:
+def validate_language(attributes: Any) -> None:
     """
     Validates and updates the language attribute in the provided TTS configuration.
 
@@ -146,7 +143,7 @@ def validate_language(attributes: TemplateAttributeType) -> None:
     If the language is unsupported, logs an error and defaults it to `TTSKeys.en_language`.
 
     Args:
-        attributes (TemplateAttributeType): The model attributes containing the language setting.
+        attributes (TemplateAttributes): The model attributes containing the language setting.
     """
     if attributes.language not in supported_language_codes:
         sinapsis_logger.error(f"Language {attributes.language} not supported. Defaulting to {TTSKeys.en_language}")

@@ -14,7 +14,7 @@ class CSMTTS(Template):
     Sinapsis template for converting text into speech using the CSM TTS model.
     """
 
-    class AttributesBaseModel(TemplateAttributes):  # type: ignore
+    class AttributesBaseModel(TemplateAttributes):
         """
         Defines configurable attributes for the CSMTTS template.
         """
@@ -24,6 +24,8 @@ class CSMTTS(Template):
         device: Literal["cuda", "cpu"] = "cpu"
         context: list[str] | None = None
         sample_rate_hz: int = 24000
+
+    attributes: AttributesBaseModel
 
     def __init__(self, attributes: TemplateAttributeType) -> None:
         """
