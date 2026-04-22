@@ -14,7 +14,7 @@ templates:
     n_gpu_layers: -1
     n_ctx: 30000
     model_id: "Mungert/orpheus-3b-0.1-ft-GGUF"
-    model_variant: "orpheus-3b-0.1-ft-bf16_q4_k.gguf"
+    model_variant: "orpheus-3b-0.1-ft-iq3_xxs.gguf"
     voice_id: "tara"
     temperature: 0.8
     top_p: 0.95
