@@ -30,6 +30,7 @@ Sinapsis Speech
 
 This repo includes packages for performing speech synthesis using different tools:
 
+* <code>sinapsis-60db</code>
 * <code>sinapsis-elevenlabs</code>
 * <code>sinapsis-f5-tts</code>
 * <code>sinapsis-kokoro</code>
@@ -80,6 +81,22 @@ uv pip install sinapsis-speech[all] --extra-index-url https://pypi.sinapsis.tech
 <h2 id="packages">📦 Packages</h2>
 
 This repository is organized into modular packages, each designed for integration with different text-to-speech tools. These packages provide ready-to-use templates for speech synthesis. Below is an overview of the available packages:
+
+<details>
+<summary id="sixtydb"><strong><span style="font-size: 1.4em;"> Sinapsis 60dB </span></strong></summary>
+
+This package offers a suite of templates and utilities for **text-to-speech (TTS)** powered by [60dB](https://60db.ai/), available as single-request synthesis, NDJSON streaming, and WebSocket streaming. It mirrors the structure of the Sinapsis ElevenLabs package so both vendors can be used interchangeably inside a pipeline.
+
+- **SixtyDBTTS**: Template for converting text into speech in a single request (`POST /tts-synthesize`).
+
+- **SixtyDBTTSStream**: Template for converting text into speech using the NDJSON streaming endpoint (`POST /tts-stream`).
+
+- **SixtyDBTTSWebSocket**: Template for converting text into speech over the WebSocket API (`wss://api.60db.ai/ws/tts`).
+
+For specific instructions and further details, see the [README.md](https://github.com/Sinapsis-AI/sinapsis-speech/blob/main/packages/sinapsis_60db/README.md).
+
+</details>
+
 
 <details>
 <summary id="elevenlabs"><strong><span style="font-size: 1.4em;"> Sinapsis ElevenLabs </span></strong></summary>
@@ -185,6 +202,9 @@ cd sinapsis-speech
 > Set your env var using <code> export ELEVENLABS_API_KEY='your-api-key'</code>
 
 > [!IMPORTANT]
+> 60dB requires an API key to run any inference. Set your env var using <code> export SIXTYDB_API_KEY='your-api-key'</code>
+
+> [!IMPORTANT]
 > F5-TTS requires a reference audio file for voice cloning. Make sure you have a reference audio file in the artifacts directory.
 
 > [!IMPORTANT]
@@ -206,6 +226,10 @@ docker compose -f docker/compose.yaml build
 
 2. **Start the app container**:
 
+- For 60dB:
+```bash
+docker compose -f docker/compose_apps.yaml up -d sinapsis-60db
+```
 - For ElevenLabs:
 ```bash
 docker compose -f docker/compose_apps.yaml up -d sinapsis-elevenlabs
@@ -243,6 +267,10 @@ docker compose -f docker/compose_apps.yaml up -d sinapsis-csm
 
 3. **Check the logs**
 
+- For 60dB:
+```bash
+docker logs -f sinapsis-60db
+```
 - For ElevenLabs:
 ```bash
 docker logs -f sinapsis-elevenlabs
@@ -318,6 +346,12 @@ uv pip install sinapsis-speech[all] --extra-index-url https://pypi.sinapsis.tech
 
 3. **Run the webapp**:
 
+- For 60dB (TTS / streaming / websocket):
+```bash
+uv run webapps/generic_tts_apps/sixtydb_tts_app.py
+uv run webapps/generic_tts_apps/sixtydb_tts_stream_app.py
+uv run webapps/generic_tts_apps/sixtydb_tts_websocket_app.py
+```
 - For ElevenLabs:
 ```bash
 uv run webapps/generic_tts_apps/elevenlabs_tts_app.py

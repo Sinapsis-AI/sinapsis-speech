@@ -1,4 +1,20 @@
 services:
+  sinapsis-60db:
+    extends:
+      service: sinapsis-speech-main
+      file: compose.yaml
+    container_name: sinapsis-60db
+    environment:
+      AGENT_CONFIG_PATH: ${AGENT_CONFIG_PATH:-packages/sinapsis_60db/src/sinapsis_60db/configs/sixtydb_tts_demo.yaml}
+      PYTHONPATH: /app/webapps:/lib/python3.10/:/app/.venv/lib/python3.10/site-packages:/lib/python3.10/
+      SIXTYDB_API_KEY: ${SIXTYDB_API_KEY}
+    tty: true
+    volumes:
+      - "../webapps/:/app/webapps"
+      - "../packages/sinapsis_60db/src/sinapsis_60db/configs/:/app/packages/sinapsis_60db/src/sinapsis_60db/configs/"
+
+    command: python3 webapps/generic_tts_apps/sixtydb_tts_app.py
+
   sinapsis-elevenlabs:
     extends:
       service: sinapsis-speech-main

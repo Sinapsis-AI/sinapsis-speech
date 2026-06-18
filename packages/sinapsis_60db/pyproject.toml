@@ -1,0 +1,65 @@
+[project]
+name = "sinapsis-60db"
+version = "0.1.0"
+description = "Generate realistic voices from text using the 60dB speech API."
+readme = "README.md"
+authors = [
+    {name = "SinapsisAI", email = "dev@sinapsis.tech"},
+]
+license-files = ["LICENSE"]
+requires-python = ">=3.10"
+dependencies = [
+    "requests>=2.31.0",
+    "websockets>=12.0",
+    "sinapsis>=0.2.2",
+]
+
+[project.optional-dependencies]
+data-tools = [
+    "sinapsis-data-readers>=0.1.2",
+]
+all = [
+    "sinapsis-60db[data-tools]",
+]
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[[tool.uv.index]]
+url = "https://pypi.sinapsis.tech/"
+
+[tool.uv.sources]
+sinapsis-60db = { workspace = true }
+
+
+[project.urls]
+Homepage = "https://sinapsis.tech"
+Documentation = "https://docs.sinapsis.tech/docs"
+Tutorials = "https://docs.sinapsis.tech/tutorials"
+Repository = "https://github.com/Sinapsis-AI/sinapsis-speech.git"
+
+[tool.ruff]
+lint.select = [
+    "ARG",
+    "ANN",
+    "BLE",
+    "C4",
+    "E",
+    "F",
+    "FIX",
+    "FLY",
+    "I",
+    "PERF",
+    "PIE",
+    "RUF",
+    "RSE",
+    "SIM",
+    "SLOT",
+    "T10",
+    "T20",
+    "TD",
+    "TID",
+]
+lint.ignore = ['ANN401']
+line-length = 120
+show-fixes = true

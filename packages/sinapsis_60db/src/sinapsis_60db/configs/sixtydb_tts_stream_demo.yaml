@@ -1,0 +1,16 @@
+agent:
+  name: text_to_speech_stream
+  description: streaming text to speech agent using 60dB
+
+templates:
+
+- template_name: InputTemplate
+  class_name: InputTemplate
+  attributes: {}
+
+- template_name: SixtyDBTTSStream
+  class_name: SixtyDBTTSStream
+  template_input: InputTemplate
+  attributes:
+    voice: null
+    stream: true

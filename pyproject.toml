@@ -22,6 +22,7 @@ dev = [
 [project.optional-dependencies]
 
 all = [
+    "sinapsis-60db[all]",
     "sinapsis-elevenlabs[all]",
     "sinapsis-f5-tts[all]",
     "sinapsis-kokoro[all]",
@@ -45,6 +46,7 @@ packages = { find = { where = ["packages"] } }
 
 
 [tool.uv.sources]
+sinapsis-60db = { workspace = true }
 sinapsis-elevenlabs = { workspace = true }
 sinapsis-f5-tts = { workspace = true }
 sinapsis-kokoro = { workspace = true }

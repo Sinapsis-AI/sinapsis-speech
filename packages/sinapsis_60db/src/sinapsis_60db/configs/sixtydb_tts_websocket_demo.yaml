@@ -1,0 +1,17 @@
+agent:
+  name: text_to_speech_websocket
+  description: websocket text to speech agent using 60dB
+
+templates:
+
+- template_name: InputTemplate
+  class_name: InputTemplate
+  attributes: {}
+
+- template_name: SixtyDBTTSWebSocket
+  class_name: SixtyDBTTSWebSocket
+  template_input: InputTemplate
+  attributes:
+    voice: null
+    audio_encoding: OGG_OPUS
+    sample_rate_hertz: 48000

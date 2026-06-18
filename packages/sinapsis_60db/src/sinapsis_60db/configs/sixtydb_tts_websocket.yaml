@@ -1,0 +1,33 @@
+agent:
+  name: text_to_speech_websocket
+  description: websocket text to speech agent using 60dB
+
+templates:
+
+- template_name: InputTemplate
+  class_name: InputTemplate
+  attributes: {}
+
+- template_name: TextInput
+  class_name: TextInput
+  template_input: InputTemplate
+  attributes:
+    text: This is a test of the Sinapsis 60dB websocket text-to-speech template.
+
+- template_name: SixtyDBTTSWebSocket
+  class_name: SixtyDBTTSWebSocket
+  template_input: TextInput
+  attributes:
+    voice: null
+    audio_encoding: OGG_OPUS
+    sample_rate_hertz: 48000
+    speed: 1.0
+    stability: 50.0
+    similarity: 75.0
+
+- template_name: AudioWriterSoundfile
+  class_name: AudioWriterSoundfile
+  template_input: SixtyDBTTSWebSocket
+  attributes:
+    save_dir: "60db"
+    extension: "wav"
