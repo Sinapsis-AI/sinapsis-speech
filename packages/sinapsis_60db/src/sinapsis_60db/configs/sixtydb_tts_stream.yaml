@@ -1,0 +1,34 @@
+agent:
+  name: text_to_speech_stream
+  description: streaming text to speech agent using 60dB
+
+templates:
+
+- template_name: InputTemplate
+  class_name: InputTemplate
+  attributes: {}
+
+- template_name: TextInput
+  class_name: TextInput
+  template_input: InputTemplate
+  attributes:
+    text: This is a test of the Sinapsis 60dB streaming text-to-speech template.
+
+- template_name: SixtyDBTTSStream
+  class_name: SixtyDBTTSStream
+  template_input: TextInput
+  attributes:
+    voice: null
+    output_format: mp3
+    enhance: true
+    speed: 1.0
+    stability: 50.0
+    similarity: 75.0
+    stream: true
+
+- template_name: AudioWriterSoundfile
+  class_name: AudioWriterSoundfile
+  template_input: SixtyDBTTSStream
+  attributes:
+    save_dir: "60db"
+    extension: "wav"
